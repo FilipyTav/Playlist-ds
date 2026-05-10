@@ -8,7 +8,7 @@ class MusicLibrary:
         self.__tail: SMusicNode | None = None
         self.__count: int = 0
 
-    def insert_at(self, m: Music, pos: int) -> bool:
+    def insert_at(self, pos: int, m: Music) -> bool:
         if pos < 0 or pos > self.__count:
             print(f"Index out of range: {pos}, the list has {self.__count} element(s)")
             return False
@@ -52,3 +52,35 @@ class MusicLibrary:
 
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
+
+    def __len__(self) -> int:
+        return self.__count
+
+    def __str__(self) -> str:
+        """Quick summary"""
+        return f"MusicLibrary(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
+
+    def display_library(self):
+        """Visual chain"""
+        if self.__count == 0:
+            print("The library is currently empty. 🎵")
+            return
+
+        print(f"\n--- My Music Library ({self.__count} Tracks) ---")
+
+        current: SMusicNode | None = self.__head
+        chain = []
+
+        while current:
+            chain.append(f"[{current.data.title}]")
+            current = current.next
+
+        print("(HEAD)" + " ➔ ".join(chain) + "(TAIL)")
+        print("-" * 40)
+
+    def display_all_cards(self):
+        """Prints every song in the library using the card format we made."""
+        current = self.__head
+        while current:
+            current.data.display_card()
+            current = current.next
