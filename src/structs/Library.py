@@ -9,6 +9,7 @@ class MusicLibrary:
         self.__count: int = 0
 
     def insert_at(self, pos: int, m: Music) -> bool:
+        """Insert at pos"""
         if pos < 0 or pos > self.__count:
             print(f"Index out of range: {pos}, the list has {self.__count} element(s)")
             return False
@@ -63,7 +64,7 @@ class MusicLibrary:
     def display_library(self):
         """Visual chain"""
         if self.__count == 0:
-            print("The library is currently empty. 🎵")
+            print("The library is currently empty.")
             return
 
         print(f"\n--- My Music Library ({self.__count} Tracks) ---")
@@ -84,3 +85,11 @@ class MusicLibrary:
         while current:
             current.data.display_card()
             current = current.next
+
+    def push(self, m: Music) -> bool:
+        """Add to end"""
+        return self.insert_at(self.__len__(), m)
+
+    def prepend(self, m: Music) -> bool:
+        """Add to start"""
+        return self.insert_at(0, m)

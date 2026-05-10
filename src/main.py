@@ -11,9 +11,10 @@ def main():
     )
 
     library = MusicLibrary()
-    library.insert_at(0, song)
-    library.insert_at(1, track1)
-    library.insert_at(2, track2)
+    library.push(song)
+    library.push(track1)
+    library.push(track2)
+    library.prepend(track2)
 
     print(library)
     library.display_library()
