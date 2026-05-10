@@ -1,7 +1,7 @@
 class Music:
-    def __init__(self, id, title, artist, genre, bpm) -> None:
-        self.id = id
-        self.title = title
-        self.artist = artist
-        self.type = genre
-        self.bpm = bpm
+    def __init__(self, id: int, title: str, artist: str, genre: str, bpm: int) -> None:
+        self.id: int = id
+        self.title: str = title
+        self.artist: str = artist
+        self.type: str = genre
+        self.bpm: int = bpm
