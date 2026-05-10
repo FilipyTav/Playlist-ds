@@ -4,10 +4,10 @@ from structs.MusicNode import SMusicNode
 
 
 def main():
-    song: Music = Music(0, "Test", "Me", "Electronic", 60)
-    track1 = Music(1, "Blinding Lights", "The Weeknd", "Synthwave", 171)
+    song: Music = Music("Test", "Me", "Electronic", 60)
+    track1 = Music("Blinding Lights", "The Weeknd", "Synthwave", 171)
     track2 = Music(
-        102, "Supercalifragilisticexpialidocious", "Dick Van Dyke", "Musical", 144
+        "Supercalifragilisticexpialidocious", "Dick Van Dyke", "Musical", 144
     )
 
     library = MusicLibrary()
