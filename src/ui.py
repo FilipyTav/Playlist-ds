@@ -48,6 +48,23 @@ def main_menu() -> Screen:
         return nav
 
     match choice:
+        case "1":
+            return Screen.ADD_SONG
+
         case _:
-            print("Opção inválida! Escolha 1, 2 ou q.")
+            print("Opção inválida!")
             return Screen.MAIN
+
+
+def lib_add_song() -> Screen:
+    return Screen.TODO
+
+
+def todo_screen() -> Screen:
+    print("Screen yet to be implemented")
+    choice = input(NAV_PROMPT).strip().lower()
+
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
+    return Screen.STAY

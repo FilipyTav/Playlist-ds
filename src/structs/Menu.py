@@ -1,8 +1,10 @@
 from structs.MenuStack import MenuStack
 
 from ui import (
+    lib_add_song,
     main_menu,
     screen_clear,
+    todo_screen,
 )
 
 from utils.types import Screen
@@ -17,6 +19,8 @@ class MenuManager:
 
         self._dispatch_map = {
             Screen.MAIN: main_menu,
+            Screen.ADD_SONG: lib_add_song,
+            Screen.TODO: todo_screen,
         }
 
     def run(self):
@@ -45,7 +49,7 @@ class MenuManager:
         return Screen.EXIT
 
     def _navigate(self, current_sc: Screen, new_sc: Screen) -> None:
-        if new_sc == current_sc:
+        if new_sc == current_sc or new_sc == Screen.STAY:
             return
 
         if new_sc == Screen.MAIN:
