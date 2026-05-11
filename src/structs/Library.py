@@ -108,3 +108,16 @@ class MusicLibrary:
             current = current.next
 
         return None
+
+    def find_by_id(self, id: int) -> Music | None:
+        if self.is_empty() or id < 0:
+            return None
+
+        current: SMusicNode | None = self.__head
+        while current:
+            if current.data.id == id:
+                return current.data
+
+            current = current.next
+
+        return None

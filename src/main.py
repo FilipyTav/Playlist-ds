@@ -19,7 +19,8 @@ def main():
     library.display_library()
     library.display_all_cards()
 
-    a = library.find_by_name("Supercalifragilisticexpialidocious")
+    # a = library.find_by_name("Supercalifragilisticexpialidocious")
+    a = library.find_by_id(0)
     print(a)
 
     # print(song)
