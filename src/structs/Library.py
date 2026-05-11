@@ -141,8 +141,38 @@ class MusicLibrary:
         while current:
             if index + 1 == pos:
                 assert current.next
-                self.__count -= 1
                 current.next = current.next.next
+                self.__count -= 1
+                return True
+
+            current = current.next
+            index += 1
+
+        return False
+
+    def remove_by_id(self, id: int) -> bool:
+        """Remove music by id"""
+        if id < 0:
+            print(f"(ERROR): Invalid ID: {id}.")
+            return False
+
+        if self.is_empty():
+            return False
+
+        assert self.__head
+        if self.__head.data.id == id:
+            self.__head = self.__head.next
+            self.__count -= 1
+            return True
+
+        current: SMusicNode | None = self.__head
+        index: int = 0
+        # Avoids searching tail
+        while current and current.next:
+            if current.next.data.id == id:
+                assert current.next
+                current.next = current.next.next
+                self.__count -= 1
                 return True
 
             current = current.next

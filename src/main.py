@@ -20,9 +20,10 @@ def main():
     library.display_library()
     library.display_all_cards()
 
-    a = library.remove_at(0)
+    a = library.remove_by_id(0)
     print(a)
     library.display_library()
+    library.display_all_cards()
 
     # print(song)
     # print(track1)
