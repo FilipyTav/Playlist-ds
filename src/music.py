@@ -1,3 +1,6 @@
+from utils.colors import Colors
+
+
 class Music:
     __next_id: int = 0
 
@@ -19,22 +22,32 @@ class Music:
         return f"Music(id={self.id}, title='{self.title}')"
 
     def display_card(self):
-        """Nice card for visualization"""
+        """Card for visualization"""
         width: int = 40
         line: str = "─" * (width + 2)
 
         def format_row(label, value):
-            content = f"{label}: {value}"
+            val_str: str = str(value)
+            EXTRA_LEN: int = len(": ")
 
-            if len(content) > width:
-                content = content[: width - 3] + "..."
+            max_val_len: int = width - len(label) - EXTRA_LEN
 
-            return f"│ {content:<{width}} │"
+            # Truncate value
+            if len(val_str) > max_val_len:
+                val_str = val_str[: max_val_len - 3] + "..."
 
-        print(f"┌{line}┐")
+            colored_label: str = f"{Colors.GOLD}{Colors.BOLD}{label}{Colors.RESET}"
+            colored_value: str = f"{Colors.CYAN}{val_str}{Colors.RESET}"
+
+            visible_length: int = len(label) + EXTRA_LEN + len(val_str)
+            padding: str = " " * (width - visible_length)
+
+            return f"{Colors.BLUE}│{Colors.RESET} {colored_label}: {colored_value}{padding} {Colors.BLUE}│{Colors.RESET}"
+
+        print(f"{Colors.BLUE}┌{line}┐{Colors.RESET}")
         print(format_row("ID", self.id))
         print(format_row("Title", self.title))
         print(format_row("Artist", self.artist))
         print(format_row("Genre", self.genre))
         print(format_row("Tempo", f"{self.bpm} BPM"))
-        print(f"└{line}┘")
+        print(f"{Colors.BLUE}└{line}┘{Colors.RESET}")
