@@ -1,6 +1,7 @@
 from music import Music
 from structs.Library import MusicLibrary
 from structs.Menu import MenuManager
+from utils.types import AppState
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
     library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
-    menu: MenuManager = MenuManager()
+    menu: MenuManager = MenuManager(AppState(library))
     menu.run()
 
 

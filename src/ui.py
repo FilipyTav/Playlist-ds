@@ -1,5 +1,7 @@
 import os
 
+from music import Music
+from structs.Library import MusicLibrary
 from utils.errors import EmptyValueError, NegativeNumberError
 from utils.input import get_and_validate_input
 from utils.strings import clean_string
@@ -58,7 +60,7 @@ def main_menu() -> Screen:
             return Screen.MAIN
 
 
-def lib_add_song() -> Screen:
+def lib_add_song(library: MusicLibrary) -> Screen:
     screen_clear()
 
     print("=" * 40)
@@ -90,6 +92,8 @@ def lib_add_song() -> Screen:
     )
 
     bpm = int(bpm_str)
+
+    library.push(Music(title, artist, genre, bpm))
 
     print("-" * 40)
     print(f"\033[92mMúsica '{title}' adicionada com sucesso!\033[0m")

@@ -1,5 +1,6 @@
+from structs.Library import MusicLibrary
 from structs.MenuStack import MenuStack
-
+from utils.types import AppState, Screen
 from ui import (
     lib_add_song,
     main_menu,
@@ -7,19 +8,18 @@ from ui import (
     todo_screen,
 )
 
-from utils.types import Screen
-
 
 class MenuManager:
-    def __init__(self):
+    def __init__(self, state: AppState):
         self.__screen_history: MenuStack = MenuStack()
 
         self.__is_running: bool = True
         self.__screen_history.push(Screen.MAIN)
 
+        self.state: AppState = state
         self._dispatch_map = {
             Screen.MAIN: main_menu,
-            Screen.ADD_SONG: lib_add_song,
+            Screen.ADD_SONG: lambda: lib_add_song(self.state.library),
             Screen.TODO: todo_screen,
         }
 

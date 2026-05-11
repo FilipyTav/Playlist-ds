@@ -1,4 +1,7 @@
+from dataclasses import dataclass
 from enum import Enum, auto
+
+from structs.Library import MusicLibrary
 
 
 class Screen(Enum):
@@ -15,3 +18,8 @@ class Screen(Enum):
     STAY = auto()
     TODO = auto()
     # ------------------------
+
+
+@dataclass
+class AppState:
+    library: MusicLibrary
