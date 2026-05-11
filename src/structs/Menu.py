@@ -15,6 +15,10 @@ class MenuManager:
         self.__is_running: bool = True
         self.__screen_history.push(Screen.MAIN)
 
+        self._dispatch_map = {
+            Screen.MAIN: main_menu,
+        }
+
     def run(self):
         screen: Screen | None = None
         new_sc: Screen = Screen.MAIN
@@ -30,15 +34,14 @@ class MenuManager:
             self._navigate(screen, new_sc)
 
     def _handle_nav(self, screen: Screen) -> Screen:
-        match screen:
-            case Screen.MAIN:
-                return main_menu()
+        """Lookup and execute the handler for the given screen"""
 
-            #
-            # ------------------------
-            # ------------------------
-            case _:
-                return Screen.MAIN
+        handler = self._dispatch_map.get(screen)
+        if handler:
+            return handler()
+
+        print(f"Error: No handler for {screen}")
+        return Screen.EXIT
 
     def _navigate(self, current_sc: Screen, new_sc: Screen) -> None:
         if new_sc == current_sc:
