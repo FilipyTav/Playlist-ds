@@ -29,6 +29,15 @@ def main():
     list1.display_playlist()
     list1.display_all_cards()
 
+    el = list1.dequeue()
+    el = list1.dequeue()
+    el = list1.dequeue()
+    print(el)
+
+    print(list1)
+    list1.display_playlist()
+    list1.display_all_cards()
+
 
 if __name__ == "__main__":
     main()

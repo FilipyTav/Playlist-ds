@@ -32,6 +32,24 @@ class Playlist:
         self.__count += 1
         return True
 
+    def dequeue(self) -> Music | None:
+        if self.is_empty():
+            print("No element to dequeue - list empty")
+            return None
+
+        assert self.__head
+        music: Music = self.__head.data
+
+        self.__head = self.__head.next
+
+        if self.__head:
+            self.__head.prev = None
+        else:
+            self.__tail = None
+
+        self.__count -= 1
+        return music
+
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
 
