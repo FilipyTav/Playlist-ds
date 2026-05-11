@@ -13,12 +13,14 @@ def main():
     library = MusicLibrary()
     library.push(song)
     library.push(track1)
-    library.push(track2)
     library.prepend(track2)
 
     print(library)
     library.display_library()
     library.display_all_cards()
+
+    a = library.find_by_name("Supercalifragilisticexpialidocious")
+    print(a)
 
     # print(song)
     # print(track1)

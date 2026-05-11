@@ -1,5 +1,6 @@
 from music import Music
 from structs.MusicNode import SMusicNode
+from utils import clean_string
 
 
 class MusicLibrary:
@@ -93,3 +94,17 @@ class MusicLibrary:
     def prepend(self, m: Music) -> bool:
         """Add to start"""
         return self.insert_at(0, m)
+
+    def find_by_name(self, name: str) -> Music | None:
+        if self.is_empty():
+            print("Lista vazia.")
+            return None
+
+        current: SMusicNode | None = self.__head
+        while current:
+            if clean_string(current.data.title) == clean_string(name):
+                return current.data
+
+            current = current.next
+
+        return None
