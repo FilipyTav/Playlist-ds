@@ -110,7 +110,11 @@ def lib_add_song(library: MusicLibrary) -> Screen:
 
     print("-" * 40)
     print(f"\033[92mMúsica '{title}' adicionada com sucesso!\033[0m")
-    input("\nPressione Enter para continuar...")
+
+    choice = input(NAV_PROMPT).strip().lower()
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
 
     return Screen.BACK
 
@@ -119,7 +123,10 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
 
-    input("\nPressione Enter para continuar...")
+    choice = input(NAV_PROMPT).strip().lower()
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
     return Screen.BACK
 
 
