@@ -1,5 +1,6 @@
 import os
 
+from utils.strings import clean_string
 from utils.types import Screen
 
 
@@ -7,13 +8,19 @@ def screen_clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def print_main_options(back: bool = True, main: bool = True, stop: bool = True) -> None:
-    if back:
-        print("B. Voltar ao menu anterior")
-    if main:
-        print("M. Voltar ao menu inicial")
-    if stop:
-        print("Q. Fechar programa")
+NAV_PROMPT: str = "\n[B] Voltar | [M] Início | [Q] Sair\n> "
+
+
+def handle_global_nav(choice: str) -> Screen | None:
+    match clean_string(choice):
+        case "b":
+            return Screen.BACK
+        case "m":
+            return Screen.MAIN
+        case "q":
+            return Screen.EXIT
+        case _:
+            return None
 
 
 def main_menu() -> Screen:
@@ -21,14 +28,15 @@ def main_menu() -> Screen:
     print("\t--- BIBLIOTECA ---")
     print("=" * 40)
 
-    print()
-    print_main_options(back=False, main=False, stop=True)
+    print("\nEscolha uma opção: \n")
+    choice = input(NAV_PROMPT).strip().lower()
 
-    choice: str = input("\nEscolha uma opção: ").strip().lower()
+    # Check global nav first
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
 
     match choice:
-        case "q":
-            return Screen.EXIT
         case _:
             print("Opção inválida! Escolha 1, 2 ou q.")
             return Screen.MAIN
