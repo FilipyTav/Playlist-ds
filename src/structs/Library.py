@@ -121,3 +121,31 @@ class MusicLibrary:
             current = current.next
 
         return None
+
+    def remove_at(self, pos: int) -> bool:
+        """Remove at pos"""
+        if pos < 0 or pos >= self.__count:
+            print(f"Index out of range: {pos}, the list has {self.__count} element(s)")
+            return False
+
+        if self.is_empty():
+            return False
+
+        if pos == 0:
+            self.__head = self.__head.next  # type: ignore
+            self.__count -= 1
+            return True
+
+        current: SMusicNode | None = self.__head
+        index: int = 0
+        while current:
+            if index + 1 == pos:
+                assert current.next
+                self.__count -= 1
+                current.next = current.next.next
+                return True
+
+            current = current.next
+            index += 1
+
+        return False

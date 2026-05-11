@@ -14,14 +14,15 @@ def main():
     library.push(song)
     library.push(track1)
     library.prepend(track2)
+    # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
     print(library)
     library.display_library()
     library.display_all_cards()
 
-    # a = library.find_by_name("Supercalifragilisticexpialidocious")
-    a = library.find_by_id(0)
+    a = library.remove_at(0)
     print(a)
+    library.display_library()
 
     # print(song)
     # print(track1)
