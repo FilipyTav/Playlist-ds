@@ -58,7 +58,7 @@ class MusicLibrary:
     def __len__(self) -> int:
         return self.__count
 
-    def push(self, m: Music) -> bool:
+    def append(self, m: Music) -> bool:
         """Add to end"""
         return self.insert_at(self.__len__(), m)
 

@@ -27,6 +27,10 @@ def handle_global_nav(choice: str) -> Screen | None:
             return None
 
 
+# Main
+# --------------------------------
+
+
 def main_menu() -> Screen:
     print("\n" + "=" * 40)
     print("\t--- BIBLIOTECA ---")
@@ -55,9 +59,18 @@ def main_menu() -> Screen:
         case "1":
             return Screen.ADD_SONG
 
+        case "4":
+            return Screen.LIST_SONGS
+
         case _:
             print("Opção inválida!")
             return Screen.MAIN
+
+
+# --------------------------------
+
+# Library
+# --------------------------------
 
 
 def lib_add_song(library: MusicLibrary) -> Screen:
@@ -93,13 +106,24 @@ def lib_add_song(library: MusicLibrary) -> Screen:
 
     bpm = int(bpm_str)
 
-    library.push(Music(title, artist, genre, bpm))
+    library.append(Music(title, artist, genre, bpm))
 
     print("-" * 40)
     print(f"\033[92mMúsica '{title}' adicionada com sucesso!\033[0m")
     input("\nPressione Enter para continuar...")
 
     return Screen.BACK
+
+
+def lib_list_songs(library: MusicLibrary) -> Screen:
+    screen_clear()
+    library.display_all_cards()
+
+    input("\nPressione Enter para continuar...")
+    return Screen.BACK
+
+
+# --------------------------------
 
 
 def todo_screen() -> Screen:

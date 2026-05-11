@@ -12,8 +12,8 @@ def main():
     )
 
     library = MusicLibrary()
-    library.push(song)
-    library.push(track1)
+    library.append(song)
+    library.append(track1)
     library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
