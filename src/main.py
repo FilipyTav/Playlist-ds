@@ -1,6 +1,6 @@
 from music import Music
 from structs.Library import MusicLibrary
-from structs.MusicNode import SMusicNode
+from structs.PlaylistQueue import Playlist
 
 
 def main():
@@ -16,25 +16,18 @@ def main():
     library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
-    print(library)
-    library.display_library()
-    library.display_all_cards()
+    # print(library)
+    # library.display_library()
+    # library.display_all_cards()
 
-    a = library.remove_by_id(0)
-    print(a)
-    library.display_library()
-    library.display_all_cards()
+    list1: Playlist = Playlist()
+    list1.enqueue(song)
+    list1.enqueue(track1)
+    list1.enqueue(track2)
 
-    # print(song)
-    # print(track1)
-    # print(track2)
-    #
-    # print(repr(track1))
-    # print(repr(track2))
-    # print(repr(song))
-    # song.display_card()
-    # track1.display_card()
-    # track2.display_card()
+    print(list1)
+    list1.display_playlist()
+    list1.display_all_cards()
 
 
 if __name__ == "__main__":
