@@ -15,6 +15,23 @@ class Playlist:
         self.__tail: DQueueNode | None = None
         self.__count: int = 0
 
+    def enqueue(self, m: Music) -> bool:
+        new_node: DQueueNode = DQueueNode(m)
+
+        if self.is_empty():
+            self.__head = new_node
+            self.__tail = new_node
+        else:
+            new_node.next = self.__head
+
+            assert self.__head
+            self.__head.prev = new_node
+
+            self.__head = new_node
+
+        self.__count += 1
+        return True
+
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
 
