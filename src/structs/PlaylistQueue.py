@@ -22,12 +22,12 @@ class Playlist:
             self.__head = new_node
             self.__tail = new_node
         else:
-            new_node.next = self.__head
+            new_node.prev = self.__tail
 
-            assert self.__head
-            self.__head.prev = new_node
+            assert self.__tail
+            self.__tail.next = new_node
 
-            self.__head = new_node
+            self.__tail = new_node
 
         self.__count += 1
         return True
