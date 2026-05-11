@@ -1,6 +1,6 @@
 from music import Music
 from structs.MusicNode import SMusicNode
-from utils import clean_string
+from utils.strings import clean_string
 
 
 class MusicLibrary:

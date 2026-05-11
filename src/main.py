@@ -1,6 +1,6 @@
 from music import Music
 from structs.Library import MusicLibrary
-from structs.PlaylistQueue import Playlist
+from structs.Menu import MenuManager
 
 
 def main():
@@ -16,27 +16,8 @@ def main():
     library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
-    # print(library)
-    # library.display_library()
-    # library.display_all_cards()
-
-    list1: Playlist = Playlist()
-    list1.enqueue(song)
-    list1.enqueue(track1)
-    list1.enqueue(track2)
-
-    print(list1)
-    list1.display_playlist()
-    list1.display_all_cards()
-
-    el = list1.dequeue()
-    el = list1.dequeue()
-    el = list1.dequeue()
-    print(el)
-
-    print(list1)
-    list1.display_playlist()
-    list1.display_all_cards()
+    menu: MenuManager = MenuManager()
+    menu.run()
 
 
 if __name__ == "__main__":
