@@ -1,5 +1,7 @@
 import os
 
+from utils.errors import EmptyValueError, NegativeNumberError
+from utils.input import get_and_validate_input
 from utils.strings import clean_string
 from utils.types import Screen
 
@@ -57,7 +59,43 @@ def main_menu() -> Screen:
 
 
 def lib_add_song() -> Screen:
-    return Screen.TODO
+    screen_clear()
+
+    print("=" * 40)
+    print(f"{'ADICIONAR NOVA MÚSICA':^40}")
+    print("=" * 40)
+    print(" Preencha os campos abaixo:")
+    print("-" * 40)
+
+    title: str = get_and_validate_input(
+        "Título", error_msg="O título não pode estar vazio"
+    )
+
+    artist: str = get_and_validate_input(
+        "Artista", error_msg="O artista não pode estar vazio"
+    )
+
+    genre: str = get_and_validate_input(
+        "Gênero", error_msg="O gênero não pode estar vazio"
+    )
+
+    def validate_bpm(v):
+        try:
+            return int(v) >= 0
+        except ValueError:
+            return False
+
+    bpm_str: str = get_and_validate_input(
+        "BPM", validator=validate_bpm, error_msg="BPM deve ser um número positivo"
+    )
+
+    bpm = int(bpm_str)
+
+    print("-" * 40)
+    print(f"\033[92mMúsica '{title}' adicionada com sucesso!\033[0m")
+    input("\nPressione Enter para continuar...")
+
+    return Screen.BACK
 
 
 def todo_screen() -> Screen:
