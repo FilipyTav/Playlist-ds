@@ -28,7 +28,18 @@ def main_menu() -> Screen:
     print("\t--- BIBLIOTECA ---")
     print("=" * 40)
 
-    print("\nEscolha uma opção: \n")
+    print("\nEscolha uma opção: ")
+    print(
+        "1. Adicionar música\n"
+        "2. Remover música\n"
+        "3. Buscar música\n"
+        "4. Listar músicas\n"
+        "5. Montar playlists\n"
+        "6. Reproduzir próxima\n"
+        "7. Exibir Playlist atual\n"
+        "8. Exibir histórico\n"
+        "9. Estatísticas\n"
+    )
     choice = input(NAV_PROMPT).strip().lower()
 
     # Check global nav first
