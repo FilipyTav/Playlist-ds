@@ -1,25 +1,14 @@
-from dataclasses import dataclass
 from music import DMusicNode, Music
 from utils.colors import Colors
-from utils.strings import format_error, truncate_string
-
-
-@dataclass
-class PlaylistInfo:
-    name: str
-    humor: str
-    min_bpm: int
-    max_bpm: int
+from utils.strings import truncate_string
 
 
 # Queue
-class Playlist:
-    def __init__(self, info: PlaylistInfo):
+class History:
+    def __init__(self):
         self.__head: DMusicNode | None = None
         self.__tail: DMusicNode | None = None
         self.__count: int = 0
-
-        self.info: PlaylistInfo = info
 
     def enqueue(self, m: Music) -> bool:
         new_node: DMusicNode = DMusicNode(m)
@@ -66,7 +55,7 @@ class Playlist:
 
     def __str__(self) -> str:
         """Quick summary"""
-        return f"Playlist(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
+        return f"Histórico(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_for_admin(self):
         """Visual chain"""
@@ -74,7 +63,7 @@ class Playlist:
             print("\nEmpty Playlist.")
             return
 
-        print(f"\n--- Playlist Queue ({self.__count} Tracks) ---")
+        print(f"\n--- Fila Histórico ({self.__count} Tracks) ---")
 
         current = self.__head
         chain = []
@@ -89,14 +78,9 @@ class Playlist:
         print("-" * 40)
 
     def display_for_user(self):
-        """Playlist display with table formatting"""
+        """Display table"""
         if self.is_empty():
-            print(format_error(f"Playlist {self.info.name} está vazia"))
             return
-
-        print(
-            f"\n{Colors.BOLD}{Colors.MAGENTA}>PLAYLIST: {self.info.name.upper()}{Colors.RESET}"
-        )
 
         header: str = (
             f"{Colors.BOLD}{Colors.CYAN}{'ID':<6} {'TÍTULO':<25} {'ARTISTA':<20} {'BPM':<8}{Colors.RESET}"
