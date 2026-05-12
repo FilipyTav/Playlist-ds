@@ -135,20 +135,27 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
 
 def lib_remove_song(library: MusicLibrary) -> Screen:
     screen_clear()
+    library.display_all_cards()
 
     print("=" * 40)
     print(f"{'REMOVER MÚSICA':^40}")
     print("=" * 40)
 
-    def validate_id(v):
+    def validate_id(v: str):
         try:
-            return int(v) >= 0
+            return clean_string(v) == "b" or int(v) >= 0
         except ValueError:
             return False
 
     id_str: str = get_and_validate_input(
-        "ID", validator=validate_id, error_msg="ID deve ser um número positivo"
+        "ID(B para cancelar)",
+        validator=validate_id,
+        error_msg="ID deve ser um número positivo",
     )
+
+    if id_str == "b":
+        return Screen.BACK
+
     id: int = int(id_str)
 
     # print("-" * 40)
