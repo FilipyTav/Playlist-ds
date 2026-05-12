@@ -202,18 +202,19 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         if nav:
             return nav
 
-    def validate_op(v):
+    def validate_op(v) -> bool:
         try:
             a: int = int(v)
             return a in [1, 2]
         except ValueError:
             return False
 
-    op: str = get_and_validate_input(
-        "Buscar por ID[1] ou nome[2]?",
-        validator=validate_op,
-        error_msg="Escolha uma das opções",
+    op: str | None = get_and_validate_input(
+        "Buscar por ID[1] ou nome[2]?", validate_op, "Escolha uma das opções", "B"
     )
+
+    if not op:
+        return Screen.BACK
 
     choice = input(f"{NAV_PROMPT}").strip().lower()
     nav = handle_global_nav(choice)
