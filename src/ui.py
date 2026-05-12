@@ -3,7 +3,7 @@ import os
 from music import Music
 from structs.Library import MusicLibrary
 from utils.colors import Colors
-from utils.input import get_and_validate_input, get_nav_input
+from utils.input import get_and_validate_input, get_nav_input, validate_id
 from utils.strings import (
     SEPARATOR_WIDTH,
     SUB_SEPARATOR,
@@ -125,16 +125,10 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
 
     print_section_name("REMOVER MÚSICA", sub=True)
 
-    def validate_id(v: str):
-        try:
-            return clean_string(v) == "b" or int(v) >= 0
-        except ValueError:
-            return False
-
     rm_song: Music | None = None
     while not rm_song:
         id_str: str = get_and_validate_input(
-            "ID(B para cancelar)",
+            "ID",
             validator=validate_id,
             error_msg="ID deve ser um número positivo",
         )
@@ -195,34 +189,45 @@ def lib_search_song(library: MusicLibrary) -> Screen:
     if not op:
         return Screen.BACK
 
+    error_msg: str = ""
+    song: Music | None = None
     if op == "1":
-        pass
+        id_str: str | None = get_and_validate_input(
+            "Busca por ID", validate_id, "ID deve ser um número positivo!", "B"
+        )
+
+        if not id_str:
+            return Screen.BACK
+
+        id: int = int(id_str)
+
+        song = library.find_by_id(id)
+        error_msg = f"Não foi possível econtrar música (ID:{id}) na biblioteca."
     elif op == "2":
-        name: str | None = get_and_validate_input(
+        title: str | None = get_and_validate_input(
             "Busca por nome", None, "Nome não pode estar vazio!", "B"
         )
 
-        if not name:
+        if not title:
             return Screen.BACK
 
-        song: Music | None = library.find_by_name(name)
-        if song:
-            msg: str = f" Música '{song.title}' encontrada! "
-            border: str = "═" * len(msg)
+        song = library.find_by_name(title)
+        error_msg = f"Não foi possível encontrar '{title}' na biblioteca."
 
-            # 2. Print the Header
-            print(f"\n{Colors.CYAN}╔{border}╗")
-            print(
-                f"║{Colors.BOLD}{Colors.LIGHT_GREEN}{msg}{Colors.RESET}{Colors.CYAN}║"
-            )
-            print(f"╚{border}╝{Colors.RESET}")
+    if song:
+        msg: str = f" Música '{song.title}' encontrada! "
+        border: str = "═" * len(msg)
 
-            song.display_card()
-        else:
-            print(f"Não foi possível econtrar {name} na biblioteca.")
+        print(f"\n{Colors.CYAN}╔{border}╗")
+        print(f"║{Colors.BOLD}{Colors.LIGHT_GREEN}{msg}{Colors.RESET}{Colors.CYAN}║")
+        print(f"╚{border}╝{Colors.RESET}")
 
-    print("[A] Fazer busca")
-    nav, choice = get_nav_input()
+        song.display_card()
+    else:
+        print(f"  {Colors.RED}[!] {error_msg} [!]{Colors.RESET}")
+
+    print("\n[A] Fazer busca")
+    nav, choice = get_nav_input(False)
     if nav:
         return nav
 

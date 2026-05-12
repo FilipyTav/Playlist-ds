@@ -44,3 +44,10 @@ def get_nav_input(has_nls: bool = True) -> tuple[Screen | None, str]:
     nav: Screen | None = handle_global_nav(choice)
 
     return nav, choice
+
+
+def validate_id(v: str) -> bool:
+    try:
+        return int(v) >= 0
+    except ValueError:
+        return False
