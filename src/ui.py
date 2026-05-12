@@ -4,7 +4,12 @@ from music import Music
 from structs.Library import MusicLibrary
 from utils.errors import EmptyValueError, NegativeNumberError
 from utils.input import get_and_validate_input
-from utils.strings import SEPARATOR_WIDTH, clean_string, print_section_name
+from utils.strings import (
+    SEPARATOR_WIDTH,
+    SUB_SEPARATOR,
+    clean_string,
+    print_section_name,
+)
 from utils.types import Screen
 
 
@@ -134,6 +139,12 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
 
+    if library.is_empty():
+        choice = input(f"{NAV_PROMPT}").strip().lower()
+        nav = handle_global_nav(choice)
+        if nav:
+            return nav
+
     print_section_name("REMOVER MÚSICA", sub=True)
 
     def validate_id(v: str):
@@ -162,15 +173,19 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
             continue
 
     if library.remove_by_id(rm_song.id):
-        print("-" * 40)
+        print(SUB_SEPARATOR)
         print(f"\033[92mMúsica '{rm_song.title}' removida com sucesso!\033[0m")
     else:
         print(f"Algo deu errado. Não foi possível remover {rm_song.title}")
 
-    choice = input(NAV_PROMPT).strip().lower()
+    choice = input(f"\n [A] Remover outra | {NAV_PROMPT[1:]}").strip().lower()
     nav = handle_global_nav(choice)
     if nav:
         return nav
+    match clean_string(choice):
+        case "a":
+            return Screen.STAY
+
     return Screen.BACK
 
 
