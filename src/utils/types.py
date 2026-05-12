@@ -11,6 +11,7 @@ class Screen(Enum):
     ADD_SONG = auto()
     REMOVE_SONG = auto()
     LIST_SONGS = auto()
+    FIND_SONG = auto()
     # ------------------------
 
     # Helpers

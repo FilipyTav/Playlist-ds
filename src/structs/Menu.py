@@ -4,6 +4,7 @@ from ui import (
     lib_add_song,
     lib_list_songs,
     lib_remove_song,
+    lib_search_song,
     main_menu,
     screen_clear,
     todo_screen,
@@ -35,6 +36,12 @@ class MenuManager:
                 Screen.REMOVE_SONG,
                 "Remover música",
                 lambda: lib_remove_song(self.state.library),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.FIND_SONG,
+                "Buscar música",
+                lambda: lib_search_song(self.state.library),
                 Screen.MAIN,
             ),
             ScreenConfig(

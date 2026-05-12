@@ -190,6 +190,39 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
     return Screen.BACK
 
 
+def lib_search_song(library: MusicLibrary) -> Screen:
+    screen_clear()
+    print_section_name("PROCURAR MÚSICA")
+
+    if library.is_empty():
+        print(SUB_SEPARATOR)
+        print("A biblioteca está vazia!")
+        choice = input(f"{NAV_PROMPT}").strip().lower()
+        nav = handle_global_nav(choice)
+        if nav:
+            return nav
+
+    def validate_op(v):
+        try:
+            a: int = int(v)
+            return a in [1, 2]
+        except ValueError:
+            return False
+
+    op: str = get_and_validate_input(
+        "Buscar por ID[1] ou nome[2]?",
+        validator=validate_op,
+        error_msg="Escolha uma das opções",
+    )
+
+    choice = input(f"{NAV_PROMPT}").strip().lower()
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
+
+    return Screen.BACK
+
+
 # --------------------------------
 
 
