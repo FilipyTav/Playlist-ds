@@ -2,6 +2,7 @@ import os
 
 from music import Music
 from structs.Library import MusicLibrary
+from structs.PlaylistQueue import Playlist, PlaylistInfo
 from utils.colors import Colors
 from utils.input import get_and_validate_input, get_nav_input, validate_id
 from utils.strings import (
@@ -258,6 +259,35 @@ def lib_fill_playlists(library: MusicLibrary) -> Screen:
         return nav
 
     return Screen.BACK
+
+
+def lib_choose_playlist(library: MusicLibrary) -> tuple[Screen, str | None]:
+    screen_clear()
+    print_section_name("ESCOLHA UMA PLAYLIST DE HUMOR")
+
+    options: list = list(library.playlists.keys())
+
+    for i, name in enumerate(options, 1):
+        p: Playlist = library.playlists[name]
+        print(f" {i}. {name.capitalize():<10} ({p.info.humor})")
+
+    def playlist_validator(v: str) -> bool:
+        return v.isdigit() and 1 <= int(v) <= len(options)
+
+    choice: str | None = get_and_validate_input(
+        prompt="Selecione o número da playlist",
+        validator=playlist_validator,
+        error_msg=f"Escolha um número entre 1 e {len(options)}",
+        cancel_key="B",
+    )
+
+    if choice is None:
+        return Screen.BACK, None
+
+    index: int = int(choice) - 1
+    selected_key = options[index]
+
+    return Screen.PLAYER, selected_key
 
 
 # --------------------------------

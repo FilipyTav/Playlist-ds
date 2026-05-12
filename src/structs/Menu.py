@@ -2,6 +2,7 @@ from structs.MenuStack import MenuStack
 from utils.types import AppState, Screen, ScreenConfig
 from ui import (
     lib_add_song,
+    lib_choose_playlist,
     lib_fill_playlists,
     lib_list_songs,
     lib_remove_song,
@@ -57,10 +58,22 @@ class MenuManager:
                 lambda: lib_fill_playlists(self.state.library),
                 Screen.MAIN,
             ),
+            ScreenConfig(
+                Screen.CHOOSE_PLAYLIST,
+                "Escolhar playlist",
+                lambda: lib_choose_playlist(self.state.library),
+                Screen.MAIN,
+            ),
             # ------------
+            ScreenConfig(
+                Screen.CHOOSE_PLAYLIST,
+                "Escolhar playlist",
+                lambda: lib_choose_playlist(self.state.library),
+                None,
+            ),
             # Placeholder
             # ------------
-            ScreenConfig(Screen.TODO, "Montar playlists (Em breve)", todo_screen, None),
+            ScreenConfig(Screen.TODO, "(Em breve)", todo_screen, None),
             # ------------
         ]
         self._dispatch_map = {config.id: config.handler for config in self.registry}

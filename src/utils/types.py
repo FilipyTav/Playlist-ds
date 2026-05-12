@@ -13,6 +13,8 @@ class Screen(Enum):
     LIST_SONGS = auto()
     FIND_SONG = auto()
     FILL_PLS = auto()
+    PLAYER = auto()
+    CHOOSE_PLAYLIST = auto()
     # ------------------------
 
     # Helpers
