@@ -4,7 +4,7 @@ from music import Music
 from structs.Library import MusicLibrary
 from utils.errors import EmptyValueError, NegativeNumberError
 from utils.input import get_and_validate_input
-from utils.strings import clean_string
+from utils.strings import SEPARATOR_WIDTH, clean_string, print_section_name
 from utils.types import Screen
 
 
@@ -32,9 +32,7 @@ def handle_global_nav(choice: str) -> Screen | None:
 
 
 def main_menu() -> Screen:
-    print("\n" + "=" * 40)
-    print("\t--- BIBLIOTECA ---")
-    print("=" * 40)
+    print_section_name("--- BIBLIOTECA ---")
 
     print("\nEscolha uma opção: ")
     print(
@@ -79,11 +77,10 @@ def main_menu() -> Screen:
 def lib_add_song(library: MusicLibrary) -> Screen:
     screen_clear()
 
-    print("=" * 40)
-    print(f"{'ADICIONAR NOVA MÚSICA':^40}")
-    print("=" * 40)
+    print_section_name("ADICIONAR NOVA MÚSICA")
+
     print(" Preencha os campos abaixo:")
-    print("-" * 40)
+    print("-" * SEPARATOR_WIDTH)
 
     title: str = get_and_validate_input(
         "Título", error_msg="O título não pode estar vazio"

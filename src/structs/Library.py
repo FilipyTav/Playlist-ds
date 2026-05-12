@@ -1,7 +1,7 @@
 from music import Music
 from structs.MusicNode import SMusicNode
 from utils.colors import Colors
-from utils.strings import SEPARATOR, SEPARATOR_WIDTH, clean_string
+from utils.strings import SEPARATOR, SEPARATOR_WIDTH, clean_string, print_section_name
 
 
 class MusicLibrary:
@@ -183,11 +183,7 @@ class MusicLibrary:
             )
             return
 
-        name: str = f"BIBLIOTECA ({self.__len__()} FAIXAS)"
-
-        print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR)
-        print(f"{Colors.BOLD}{name:^{SEPARATOR_WIDTH}}")
-        print(SEPARATOR + f"{Colors.RESET}")
+        print_section_name(f"BIBLIOTECA ({self.__len__()} FAIXAS)")
 
         current: SMusicNode | None = self.__head
         index: int = 1
