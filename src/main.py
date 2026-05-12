@@ -5,16 +5,22 @@ from utils.types import AppState
 
 
 def main():
-    song: Music = Music("Test", "Me", "Electronic", 60)
-    track1 = Music("Blinding Lights", "The Weeknd", "Synthwave", 171)
-    track2 = Music(
-        "Supercalifragilisticexpialidocious", "Dick Van Dyke", "Musical", 144
-    )
+    songs: list[Music] = [
+        Music("Test", "Me", "Electronic", 60),
+        Music("Blinding Lights", "The Weeknd", "Synthwave", 171),
+        Music("Supercalifragilisticexpialidocious", "Dick Van Dyke", "Musical", 144),
+        Music("Heal the World", "Michael Jackson", "Pop Ballad", 81),
+        Music("The Way You Make Me Feel", "Michael Jackson", "Pop", 114),
+        Music("Wanna Be Startin' Somethin'", "Michael Jackson", "Post-Disco", 122),
+        Music("Bad", "Michael Jackson", "Dance-Pop", 133),
+        Music("Speed Demon", "Michael Jackson", "Funk Rock", 146),
+    ]
 
     library = MusicLibrary()
-    library.append(song)
-    library.append(track1)
-    library.prepend(track2)
+    for s in songs:
+        library.append(s)
+    # library.append(track1)
+    # library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
 
     menu: MenuManager = MenuManager(AppState(library))

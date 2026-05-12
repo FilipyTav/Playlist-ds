@@ -207,9 +207,9 @@ class MusicLibrary:
         index: int = 1
 
         while current:
-            print(
-                f"\n{Colors.YELLOW}Track {index:02d}/{self.__count:02d}{Colors.RESET}"
-            )
+            # print(
+            #     f"\n{Colors.YELLOW}Track {index:02d}/{self.__count:02d}{Colors.RESET}"
+            # )
 
             current.data.display_card()
 
