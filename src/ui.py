@@ -120,10 +120,14 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
 
-    choice = input(NAV_PROMPT).strip().lower()
+    print("[A] Listar novamente", end="")
+    choice = clean_string(input(f"{NAV_PROMPT}"))
     nav = handle_global_nav(choice)
     if nav:
         return nav
+    if choice == "a":
+        return Screen.STAY
+
     return Screen.BACK
 
 
