@@ -11,6 +11,13 @@ class MusicLibrary:
         self.__tail: SMusicNode | None = None
         self.__count: int = 0
 
+        self.playlists: dict[str, Playlist] = {
+            "relaxar": Playlist(PlaylistInfo("Relaxar", "Tranquilo", 0, 80)),
+            "focar": Playlist(PlaylistInfo("Focar", "Concentração", 81, 120)),
+            "animar": Playlist(PlaylistInfo("Animar", "Agitado", 121, 160)),
+            "treinar": Playlist(PlaylistInfo("Treinar", "Intenso", 161, 99999)),
+        }
+
     def insert_at(self, pos: int, m: Music) -> bool:
         """Insert at pos"""
         if pos < 0 or pos > self.__count:
@@ -143,12 +150,12 @@ class MusicLibrary:
         while current and current.next:
             if current.next.data.id == id:
                 node_to_remove: SMusicNode = current.next
-            
+
                 if node_to_remove == self.__tail:
                     self.__tail = current
-                
+
                 current.next = node_to_remove.next
-                
+
                 self.__count -= 1
                 return True
 
@@ -162,15 +169,15 @@ class MusicLibrary:
         if self.is_empty():
             return False
 
-        relaxar_pl: Playlist = Playlist(PlaylistInfo("Relaxar", "Tranquilo", 0, 80))
-        focar_pl: Playlist = Playlist(PlaylistInfo("Focar", "Concentração", 80, 120))
-        animar_pl: Playlist = Playlist(PlaylistInfo("Animar", "Agitado", 121, 160))
-        treinar_pl: Playlist = Playlist(PlaylistInfo("Treinar", "Intenso", 160, None))
-
         current: SMusicNode | None = self.__head
         while current:
             song: Music = current.data
-            print(song.bpm)
+            for k, v in self.playlists.items():
+                min: int = v.info.min_bpm
+                max: int = v.info.max_bpm
+
+                if min <= song.bpm <= max:
+                    self.playlists[k].enqueue(song)
             current = current.next
 
         return True

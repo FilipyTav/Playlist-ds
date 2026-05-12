@@ -7,7 +7,7 @@ class PlaylistInfo:
     name: str
     humor: str
     min_bpm: int
-    max_bpm: int | None
+    max_bpm: int
 
 
 class DQueueNode:
