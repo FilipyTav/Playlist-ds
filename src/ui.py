@@ -63,48 +63,40 @@ def lib_add_song(library: MusicLibrary) -> Screen:
     print(" Preencha os campos abaixo:")
     print("-" * SEPARATOR_WIDTH)
 
-    title: str | None = get_and_validate_input(
-        "Título", error_msg="O título não pode estar vazio", cancel_key="B"
+    data: dict[str, str] = {}
+    fields: list = [
+        ("title", "Título", "Título não pode estar vazio!", None),
+        ("artist", "Artista", "Artista não pode estar vazio!", None),
+        ("genre", "Gênero", "Gênero não pode estar vazio!", None),
+        (
+            "bpm",
+            "BPM",
+            "BPM deve ser um número positivo!",
+            lambda v: v.isdigit() and int(v) >= 0,
+        ),
+    ]
+
+    for key, label, e_msg, validator in fields:
+        val = get_and_validate_input(
+            label, validator=validator, error_msg=e_msg, cancel_key="B"
+        )
+
+        if val is None:
+            return Screen.BACK
+
+        data[key] = val
+
+    success: bool = library.append(
+        Music(data["title"], data["artist"], data["genre"], int(data["bpm"]))
     )
-    if not title:
-        return Screen.BACK
-
-    artist: str | None = get_and_validate_input(
-        "Artista", error_msg="O artista não pode estar vazio", cancel_key="B"
-    )
-    if not artist:
-        return Screen.BACK
-
-    genre: str | None = get_and_validate_input(
-        "Gênero", error_msg="O gênero não pode estar vazio", cancel_key="B"
-    )
-    if not genre:
-        return Screen.BACK
-
-    def validate_bpm(v):
-        try:
-            return int(v) >= 0
-        except ValueError:
-            return False
-
-    bpm_str: str | None = get_and_validate_input(
-        "BPM",
-        validator=validate_bpm,
-        error_msg="BPM deve ser um número positivo",
-        cancel_key="B",
-    )
-
-    if not bpm_str:
-        return Screen.BACK
-
-    bpm = int(bpm_str)
-
-    library.append(Music(title, artist, genre, bpm))
 
     print(SUB_SEPARATOR)
-    print(
-        f"{Colors.LIGHT_GREEN} Música '{title}' adicionada com sucesso!{Colors.RESET}"
-    )
+    if success:
+        print(
+            f"\n{Colors.LIGHT_GREEN} Música '{data['title']}' adicionada com sucesso!{Colors.RESET}"
+        )
+    else:
+        print(format_error("Erro ao adicionar música"))
 
     nav, _ = get_nav_input()
     if nav:

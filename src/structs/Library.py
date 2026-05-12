@@ -32,9 +32,8 @@ class MusicLibrary:
             self.__head = new_node
         # new_node is now the tail
         elif pos == self.__count:
-            assert self.__tail
-            self.__tail.next = new_node
-
+            if self.__tail:
+                self.__tail.next = new_node
             self.__tail = new_node
         else:
             current: SMusicNode | None = self.__head
@@ -153,6 +152,7 @@ class MusicLibrary:
 
         return False
 
+    # TODO:
     def fill_playlists(self) -> bool:
         if self.is_empty():
             return False
