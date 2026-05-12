@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from music import Music
+from utils.colors import Colors
+from utils.strings import format_error, truncate_string
 
 
 @dataclass
@@ -64,11 +66,16 @@ class Playlist:
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
 
+    def clear(self) -> None:
+        self.__head = None
+        self.__tail = None
+        self.__count = 0
+
     def __str__(self) -> str:
         """Quick summary"""
         return f"Playlist(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
 
-    def display_playlist(self):
+    def display_for_admin(self):
         """Visual chain"""
         if self.__count == 0:
             print("\nEmpty Playlist.")
@@ -87,6 +94,40 @@ class Playlist:
 
         print(f"HEAD ➔ {visual_chain} ➔ TAIL")
         print("-" * 40)
+
+    def display_for_user(self):
+        """Playlist display with table formatting"""
+        if self.is_empty():
+            print(format_error(f"Playlist {self.info.name} está vazia"))
+            return
+
+        print(
+            f"\n{Colors.BOLD}{Colors.MAGENTA}>PLAYLIST: {self.info.name.upper()}{Colors.RESET}"
+        )
+
+        header: str = (
+            f"{Colors.BOLD}{Colors.CYAN}{'ID':<6} {'TÍTULO':<25} {'ARTISTA':<20} {'BPM':<8}{Colors.RESET}"
+        )
+        print(header)
+        print(f"{Colors.DARK_GRAY}{'—' * 60}{Colors.RESET}")
+
+        current = self.__head
+        while current:
+            m: Music = current.data
+
+            clean_title: str = truncate_string(m.title, 23)
+            clean_artist: str = truncate_string(m.artist, 18)
+
+            print(f"{Colors.GOLD}{m.id:<6}{Colors.RESET}", end="")
+            print(f"{Colors.WHITE}{clean_title:<25}{Colors.RESET}", end="")
+            print(f"{Colors.LIGHT_GRAY}{clean_artist:<20}{Colors.RESET}", end="")
+            print(f"{Colors.CYAN}{m.bpm:^8}{Colors.RESET}")
+
+            current = current.next
+
+        # 3. Footer
+        print(f"{Colors.DARK_GRAY}{'—' * 60}{Colors.RESET}")
+        print(f"{Colors.MAGENTA}Total: {self.__count} músicas{Colors.RESET}\n")
 
     def display_all_cards(self):
         """Prints every song in the playlist."""

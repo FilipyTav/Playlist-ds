@@ -1,7 +1,13 @@
 from music import Music
 from structs.MusicNode import SMusicNode
 from utils.colors import Colors
-from utils.strings import SEPARATOR, SEPARATOR_WIDTH, clean_string, print_section_name
+from utils.strings import (
+    SEPARATOR,
+    SEPARATOR_WIDTH,
+    clean_string,
+    format_error,
+    print_section_name,
+)
 from structs.PlaylistQueue import Playlist, PlaylistInfo
 
 
@@ -168,6 +174,8 @@ class MusicLibrary:
         if self.is_empty():
             return False
 
+        self.clear_playlists()
+
         current: SMusicNode | None = self.__head
         while current:
             song: Music = current.data
@@ -186,13 +194,15 @@ class MusicLibrary:
             p.clear()
 
     def display_playlists(self) -> None:
-        if self.is_empty() == 0:
-            print("The library is currently empty.")
+        if not self.playlists:
+            print(format_error("Nenhuma playlist encontrada"))
             return
-        print_section_name("--Playlists--", True)
+
+        print_section_name("MINHAS PLAYLISTS", True)
 
         for p in self.playlists.values():
-            p.display_playlist()
+            p.display_for_user()
+            print("\n" + "━" * SEPARATOR_WIDTH)
 
     def __str__(self) -> str:
         """Quick summary"""

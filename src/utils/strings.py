@@ -22,3 +22,7 @@ def print_section_name(name: str, sub: bool = False) -> None:
 
 def format_error(msg: str) -> str:
     return f"  {Colors.RED}[!] {msg} [!]{Colors.RESET}"
+
+
+def truncate_string(text: str, max_width: int, suffix: str = "...") -> str:
+    return text[: max_width - len(suffix)] + suffix if len(text) > max_width else text

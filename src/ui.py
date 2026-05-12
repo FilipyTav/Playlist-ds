@@ -245,8 +245,19 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
 
 def lib_fill_playlists(library: MusicLibrary) -> Screen:
-    library.fill_playlists()
-    return Screen.STAY
+    print_section_name("Montar playlists por humor")
+    success: bool = library.fill_playlists()
+    if success:
+        print("Playlists criadas com sucesso!")
+        library.display_playlists()
+    else:
+        print(format_error("Não foi possível criar as playlists"))
+
+    nav, _ = get_nav_input()
+    if nav:
+        return nav
+
+    return Screen.BACK
 
 
 # --------------------------------
