@@ -164,7 +164,6 @@ class MusicLibrary:
 
         return False
 
-    # TODO:
     def fill_playlists(self) -> bool:
         if self.is_empty():
             return False
@@ -182,13 +181,26 @@ class MusicLibrary:
 
         return True
 
+    def clear_playlists(self) -> None:
+        for p in self.playlists.values():
+            p.clear()
+
+    def display_playlists(self) -> None:
+        if self.is_empty() == 0:
+            print("The library is currently empty.")
+            return
+        print_section_name("--Playlists--", True)
+
+        for p in self.playlists.values():
+            p.display_playlist()
+
     def __str__(self) -> str:
         """Quick summary"""
         return f"MusicLibrary(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_library(self):
         """Visual chain"""
-        if self.__count == 0:
+        if self.is_empty() == 0:
             print("The library is currently empty.")
             return
 

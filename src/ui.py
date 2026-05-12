@@ -246,7 +246,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
 def lib_fill_playlists(library: MusicLibrary) -> Screen:
     library.fill_playlists()
-    return Screen.TODO
+    return Screen.STAY
 
 
 # --------------------------------
