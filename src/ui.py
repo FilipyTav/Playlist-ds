@@ -10,7 +10,7 @@ from utils.strings import (
     clean_string,
     print_section_name,
 )
-from utils.types import Screen
+from utils.types import Screen, ScreenConfig
 
 
 def screen_clear():
@@ -36,41 +36,33 @@ def handle_global_nav(choice: str) -> Screen | None:
 # --------------------------------
 
 
-def main_menu() -> Screen:
+def main_menu(registry: list[ScreenConfig]) -> Screen:
     print_section_name("--- BIBLIOTECA ---")
-
     print("\nEscolha uma opção: ")
-    print(
-        "1. Adicionar música\n"
-        "2. Remover música\n"
-        "3. Buscar música\n"
-        "4. Listar músicas\n"
-        "5. Montar playlists\n"
-        "6. Reproduzir próxima\n"
-        "7. Exibir Playlist atual\n"
-        "8. Exibir histórico\n"
-        "9. Estatísticas\n"
-    )
-    choice = input(NAV_PROMPT).strip().lower()
 
-    # Check global nav first
+    # All screens belonging to MAIN
+    options: list[ScreenConfig] = [c for c in registry if c.parent == Screen.MAIN]
+
+    # Options
+    for i, config in enumerate(options, 1):
+        print(f"{i}. {config.label}")
+
+    choice: str = input(NAV_PROMPT).strip().lower()
+
     nav = handle_global_nav(choice)
     if nav:
         return nav
 
-    match choice:
-        case "1":
-            return Screen.ADD_SONG
+    # Choice for main options
+    try:
+        idx: int = int(choice) - 1
+        if 0 <= idx < len(options):
+            return options[idx].id
+    except ValueError:
+        pass
 
-        case "2":
-            return Screen.REMOVE_SONG
-
-        case "4":
-            return Screen.LIST_SONGS
-
-        case _:
-            print("Opção inválida!")
-            return Screen.MAIN
+    print("\033[91m[!] Opção inválida!\033[0m")
+    return Screen.STAY
 
 
 # --------------------------------

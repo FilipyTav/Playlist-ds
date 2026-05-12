@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum, auto
+from typing import Callable
 
 from structs.Library import MusicLibrary
 
@@ -25,3 +26,11 @@ class Screen(Enum):
 @dataclass
 class AppState:
     library: MusicLibrary
+
+
+@dataclass
+class ScreenConfig:
+    id: Screen
+    label: str
+    handler: Callable
+    parent: Screen | None = None

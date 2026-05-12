@@ -1,6 +1,5 @@
-from structs.Library import MusicLibrary
 from structs.MenuStack import MenuStack
-from utils.types import AppState, Screen
+from utils.types import AppState, Screen, ScreenConfig
 from ui import (
     lib_add_song,
     lib_list_songs,
@@ -19,13 +18,38 @@ class MenuManager:
         self.__screen_history.push(Screen.MAIN)
 
         self.state: AppState = state
-        self._dispatch_map = {
-            Screen.MAIN: main_menu,
-            Screen.ADD_SONG: lambda: lib_add_song(self.state.library),
-            Screen.REMOVE_SONG: lambda: lib_remove_song(self.state.library),
-            Screen.LIST_SONGS: lambda: lib_list_songs(self.state.library),
-            Screen.TODO: todo_screen,
-        }
+        self.registry = [
+            # Main
+            # ------------
+            ScreenConfig(Screen.MAIN, "Menu Inicial", main_menu, None),
+            # ------------
+            # Children of MAIN
+            # ------------
+            ScreenConfig(
+                Screen.ADD_SONG,
+                "Adicionar música",
+                lambda: lib_add_song(self.state.library),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.REMOVE_SONG,
+                "Remover música",
+                lambda: lib_remove_song(self.state.library),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.LIST_SONGS,
+                "Listar músicas",
+                lambda: lib_list_songs(self.state.library),
+                Screen.MAIN,
+            ),
+            # ------------
+            # Placeholder
+            # ------------
+            ScreenConfig(Screen.TODO, "Montar playlists (Em breve)", todo_screen, None),
+            # ------------
+        ]
+        self._dispatch_map = {config.id: config.handler for config in self.registry}
 
     def run(self):
         screen: Screen | None = None
@@ -46,11 +70,11 @@ class MenuManager:
         """Lookup and execute the handler for the given screen"""
 
         handler = self._dispatch_map.get(screen)
-        if handler:
-            return handler()
 
-        print(f"Error: No handler for {screen}")
-        return Screen.EXIT
+        if screen == Screen.MAIN:
+            return handler(self.registry)  # type: ignore
+
+        return handler()  # type: ignore
 
     def _navigate(self, current_sc: Screen, new_sc: Screen) -> None:
         if new_sc == current_sc or new_sc == Screen.STAY:
