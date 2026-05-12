@@ -35,3 +35,10 @@ class ScreenConfig:
     label: str
     handler: Callable
     parent: Screen | None = None
+
+@dataclass
+class PlaylistInfo:
+    name: str
+    humor: str
+    min_bpm: int
+    max_bpm: int | None

@@ -1,4 +1,5 @@
 from music import Music
+from utils.types import PlaylistInfo
 
 
 class DQueueNode:
@@ -10,10 +11,12 @@ class DQueueNode:
 
 # Queue
 class Playlist:
-    def __init__(self):
+    def __init__(self, info: PlaylistInfo):
         self.__head: DQueueNode | None = None
         self.__tail: DQueueNode | None = None
         self.__count: int = 0
+
+        self.info: PlaylistInfo = info
 
     def enqueue(self, m: Music) -> bool:
         new_node: DQueueNode = DQueueNode(m)
