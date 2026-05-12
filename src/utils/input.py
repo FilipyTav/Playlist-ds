@@ -1,5 +1,5 @@
 from utils.colors import Colors
-from utils.strings import clean_string, NAV_PROMPT
+from utils.strings import clean_string, NAV_PROMPT, format_error
 from utils.types import Screen
 
 
@@ -24,7 +24,7 @@ def get_and_validate_input(
         if is_valid:
             return value
 
-        print(f"    {Colors.RED} [!] {error_msg} [!] {Colors.RESET}")
+        print(format_error(error_msg))
 
 
 def handle_global_nav(choice: str) -> Screen | None:

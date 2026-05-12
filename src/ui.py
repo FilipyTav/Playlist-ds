@@ -8,6 +8,7 @@ from utils.strings import (
     SEPARATOR_WIDTH,
     SUB_SEPARATOR,
     clean_string,
+    format_error,
     print_section_name,
 )
 from utils.types import Screen, ScreenConfig
@@ -127,11 +128,12 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
 
     rm_song: Music | None = None
     while not rm_song:
-        id_str: str = get_and_validate_input(
-            "ID",
-            validator=validate_id,
-            error_msg="ID deve ser um número positivo",
+        id_str: str | None = get_and_validate_input(
+            "ID", validate_id, "ID deve ser um número positivo", "B"
         )
+
+        if not id_str:
+            return Screen.BACK
 
         if id_str == "b":
             return Screen.BACK
@@ -224,7 +226,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
         song.display_card()
     else:
-        print(f"  {Colors.RED}[!] {error_msg} [!]{Colors.RESET}")
+        print(format_error(error_msg))
 
     print("\n[A] Fazer busca")
     nav, choice = get_nav_input(False)

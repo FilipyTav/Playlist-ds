@@ -12,9 +12,13 @@ SEPARATOR: str = "=" * SEPARATOR_WIDTH
 SUB_SEPARATOR: str = "-" * SEPARATOR_WIDTH
 
 
-def print_section_name(name: str, sub: bool = False):
+def print_section_name(name: str, sub: bool = False) -> None:
     sep: str = SEPARATOR if not sub else SUB_SEPARATOR
 
     print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + sep)
     print(f"{Colors.BOLD}{name:^{SEPARATOR_WIDTH}}")
     print(sep + f"{Colors.RESET}")
+
+
+def format_error(msg: str) -> str:
+    return f"  {Colors.RED}[!] {msg} [!]{Colors.RESET}"
