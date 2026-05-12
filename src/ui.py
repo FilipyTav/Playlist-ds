@@ -134,9 +134,7 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
 
-    print("=" * 40)
-    print(f"{'REMOVER MÚSICA':^40}")
-    print("=" * 40)
+    print_section_name("REMOVER MÚSICA", sub=True)
 
     def validate_id(v: str):
         try:

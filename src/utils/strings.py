@@ -7,9 +7,12 @@ def clean_string(string: str):
 
 SEPARATOR_WIDTH: int = 45
 SEPARATOR: str = "=" * SEPARATOR_WIDTH
+SUB_SEPARATOR: str = "-" * SEPARATOR_WIDTH
 
 
-def print_section_name(name: str):
-    print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR)
+def print_section_name(name: str, sub: bool = False):
+    sep: str = SEPARATOR if not sub else SUB_SEPARATOR
+
+    print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + sep)
     print(f"{Colors.BOLD}{name:^{SEPARATOR_WIDTH}}")
-    print(SEPARATOR + f"{Colors.RESET}")
+    print(sep + f"{Colors.RESET}")
