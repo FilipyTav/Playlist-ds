@@ -1,6 +1,7 @@
 from music import Music
 from structs.MusicNode import SMusicNode
-from utils.strings import clean_string
+from utils.colors import Colors
+from utils.strings import SEPARATOR, SEPARATOR_WIDTH, clean_string
 
 
 class MusicLibrary:
@@ -175,7 +176,33 @@ class MusicLibrary:
 
     def display_all_cards(self):
         """Prints every song in the library."""
-        current = self.__head
+
+        if self.is_empty():
+            print(
+                f"\n{Colors.YELLOW} A biblioteca está vazia no momento.{Colors.RESET}"
+            )
+            return
+
+        name: str = f"BIBLIOTECA ({self.__len__()} FAIXAS)"
+
+        print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR)
+        print(f"{Colors.BOLD}{name:^{SEPARATOR_WIDTH}}")
+        print(SEPARATOR + f"{Colors.RESET}")
+
+        current: SMusicNode | None = self.__head
+        index: int = 1
+
         while current:
+            print(
+                f"\n{Colors.YELLOW}Track {index:02d}/{self.__count:02d}{Colors.RESET}"
+            )
+
             current.data.display_card()
+
+            # if current.next:
+            #     print(f"{Colors.MAGENTA}x{Colors.RESET}")
+
             current = current.next
+            index += 1
+
+        print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR + f"{Colors.RESET}")
