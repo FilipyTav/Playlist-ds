@@ -1,4 +1,5 @@
 from music import Music
+from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 from structs.Menu import MenuManager
 from utils.types import AppState
@@ -26,8 +27,9 @@ def main():
     # library.append(track1)
     # library.prepend(track2)
     # a = library.find_by_name("Supercalifragilisticexpialidocious")
+    history: History = History()
 
-    menu: MenuManager = MenuManager(AppState(library))
+    menu: MenuManager = MenuManager(AppState(library, history))
     menu.run()
 
 

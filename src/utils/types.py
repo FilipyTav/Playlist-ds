@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Callable
 
+from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 
 
@@ -30,6 +31,7 @@ class Screen(Enum):
 @dataclass
 class AppState:
     library: MusicLibrary
+    history: History
 
 
 @dataclass

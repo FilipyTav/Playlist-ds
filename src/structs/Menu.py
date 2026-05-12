@@ -5,6 +5,7 @@ from ui import (
     lib_choose_playlist,
     lib_fill_playlists,
     lib_list_songs,
+    lib_play_next,
     lib_remove_song,
     lib_search_song,
     main_menu,
@@ -66,9 +67,10 @@ class MenuManager:
             ),
             # ------------
             ScreenConfig(
-                Screen.CHOOSE_PLAYLIST,
-                "Escolhar playlist",
-                lambda: lib_choose_playlist(self.state.library),
+                Screen.PLAYER,
+                "Reproduzir música",
+                # Already handled in __handle_player
+                lambda: (),
                 None,
             ),
             # Placeholder
@@ -101,6 +103,13 @@ class MenuManager:
         if screen == Screen.MAIN:
             return handler(self.registry)  # type: ignore
 
+        elif screen == Screen.CHOOSE_PLAYLIST:
+            next_screen, selected_key = handler()  # type: ignore
+
+            if next_screen == Screen.PLAYER and selected_key:
+                return self.__handle_player(selected_key)
+            return next_screen
+
         return handler()  # type: ignore
 
     def _navigate(self, current_sc: Screen, new_sc: Screen) -> None:
@@ -121,3 +130,6 @@ class MenuManager:
 
         else:
             self.__screen_history.push(new_sc)
+
+    def __handle_player(self, key: str) -> Screen:
+        return lib_play_next(self.state.library, self.state.history, key)

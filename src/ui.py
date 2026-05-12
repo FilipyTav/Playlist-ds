@@ -1,11 +1,13 @@
 import os
 
 from music import Music
+from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 from structs.PlaylistQueue import Playlist, PlaylistInfo
 from utils.colors import Colors
 from utils.input import get_and_validate_input, get_nav_input, validate_id
 from utils.strings import (
+    SEPARATOR,
     SEPARATOR_WIDTH,
     SUB_SEPARATOR,
     clean_string,
@@ -288,6 +290,45 @@ def lib_choose_playlist(library: MusicLibrary) -> tuple[Screen, str | None]:
     selected_key = options[index]
 
     return Screen.PLAYER, selected_key
+
+
+def lib_play_next(library: MusicLibrary, history: History, selected_key: str) -> Screen:
+    screen_clear()
+    print_section_name(f"REPRODUZINDO: {selected_key.upper()}")
+
+    playlist: Playlist = library.playlists[selected_key]
+
+    music: Music | None = playlist.dequeue()
+
+    if music is None:
+        print(format_error(f"A fila '{selected_key}' está vazia!"))
+        print(f"\n{Colors.YELLOW} Monte as filas na opção 5.{Colors.RESET}")
+        nav, _ = get_nav_input()
+        if nav:
+            return nav
+        return Screen.BACK
+
+    print(f"\n{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+    print(f"{Colors.BOLD}{Colors.GREEN}   > TOCANDO AGORA{Colors.RESET}")
+    print(f"{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+
+    print(f"\n   {Colors.WHITE}Título:  {Colors.BOLD}{music.title}{Colors.RESET}")
+    print(f"   {Colors.WHITE}Artista: {Colors.LIGHT_GRAY}{music.artist}{Colors.RESET}")
+    print(f"   {Colors.WHITE}Gênero:  {Colors.LIGHT_GRAY}{music.genre}{Colors.RESET}")
+    print(f"   {Colors.WHITE}BPM:     {Colors.GOLD}{music.bpm}{Colors.RESET}")
+
+    print(f"\n{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+
+    history.enqueue(music)
+
+    print(
+        f"\n{Colors.DARK_GRAY}Música adicionada ao seu histórico de reprodução.{Colors.RESET}"
+    )
+
+    print(f"\n{Colors.MAGENTA}Pressione Enter para continuar...{Colors.RESET}")
+    input()
+
+    return Screen.BACK
 
 
 # --------------------------------
