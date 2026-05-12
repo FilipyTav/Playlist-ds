@@ -216,6 +216,32 @@ def lib_search_song(library: MusicLibrary) -> Screen:
     if not op:
         return Screen.BACK
 
+    if op == "1":
+        pass
+    elif op == "2":
+        name: str | None = get_and_validate_input(
+            "Busca por nome", None, "Nome não pode estar vazio!", "B"
+        )
+
+        if not name:
+            return Screen.BACK
+
+        song: Music | None = library.find_by_name(name)
+        if song:
+            msg: str = f" Música '{song.title}' encontrada! "
+            border: str = "═" * len(msg)
+
+            # 2. Print the Header
+            print(f"\n{Colors.CYAN}╔{border}╗")
+            print(
+                f"║{Colors.BOLD}{Colors.LIGHT_GREEN}{msg}{Colors.RESET}{Colors.CYAN}║"
+            )
+            print(f"╚{border}╝{Colors.RESET}")
+
+            song.display_card()
+        else:
+            print(f"Não foi possível econtrar {name} na biblioteca.")
+
     choice = input(f"{NAV_PROMPT}").strip().lower()
     nav = handle_global_nav(choice)
     if nav:
