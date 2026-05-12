@@ -12,6 +12,7 @@ class Screen(Enum):
     REMOVE_SONG = auto()
     LIST_SONGS = auto()
     FIND_SONG = auto()
+    FILL_PLS = auto()
     # ------------------------
 
     # Helpers
@@ -35,10 +36,3 @@ class ScreenConfig:
     label: str
     handler: Callable
     parent: Screen | None = None
-
-@dataclass
-class PlaylistInfo:
-    name: str
-    humor: str
-    min_bpm: int
-    max_bpm: int | None

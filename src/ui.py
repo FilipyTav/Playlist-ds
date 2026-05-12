@@ -252,6 +252,11 @@ def lib_search_song(library: MusicLibrary) -> Screen:
     return Screen.BACK
 
 
+def lib_fill_playlists(library: MusicLibrary) -> Screen:
+    library.fill_playlists()
+    return Screen.TODO
+
+
 # --------------------------------
 
 

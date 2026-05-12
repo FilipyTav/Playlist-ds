@@ -2,6 +2,7 @@ from music import Music
 from structs.MusicNode import SMusicNode
 from utils.colors import Colors
 from utils.strings import SEPARATOR, SEPARATOR_WIDTH, clean_string, print_section_name
+from structs.PlaylistQueue import Playlist, PlaylistInfo
 
 
 class MusicLibrary:
@@ -151,6 +152,23 @@ class MusicLibrary:
             index += 1
 
         return False
+
+    def fill_playlists(self) -> bool:
+        if self.is_empty():
+            return False
+
+        relaxar_pl: Playlist = Playlist(PlaylistInfo("Relaxar", "Tranquilo", 0, 80))
+        focar_pl: Playlist = Playlist(PlaylistInfo("Focar", "Concentração", 80, 120))
+        animar_pl: Playlist = Playlist(PlaylistInfo("Animar", "Agitado", 121, 160))
+        treinar_pl: Playlist = Playlist(PlaylistInfo("Treinar", "Intenso", 160, None))
+
+        current: SMusicNode | None = self.__head
+        while current:
+            song: Music = current.data
+            print(song.bpm)
+            current = current.next
+
+        return True
 
     def __str__(self) -> str:
         """Quick summary"""

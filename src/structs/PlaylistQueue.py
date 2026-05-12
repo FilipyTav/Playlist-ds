@@ -1,5 +1,13 @@
+from dataclasses import dataclass
 from music import Music
-from utils.types import PlaylistInfo
+
+
+@dataclass
+class PlaylistInfo:
+    name: str
+    humor: str
+    min_bpm: int
+    max_bpm: int | None
 
 
 class DQueueNode:

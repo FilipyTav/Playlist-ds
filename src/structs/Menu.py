@@ -2,6 +2,7 @@ from structs.MenuStack import MenuStack
 from utils.types import AppState, Screen, ScreenConfig
 from ui import (
     lib_add_song,
+    lib_fill_playlists,
     lib_list_songs,
     lib_remove_song,
     lib_search_song,
@@ -48,6 +49,12 @@ class MenuManager:
                 Screen.LIST_SONGS,
                 "Listar músicas",
                 lambda: lib_list_songs(self.state.library),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.FILL_PLS,
+                "Montar playlists por humor",
+                lambda: lib_fill_playlists(self.state.library),
                 Screen.MAIN,
             ),
             # ------------
