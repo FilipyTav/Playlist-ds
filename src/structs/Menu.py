@@ -4,6 +4,7 @@ from utils.types import AppState, Screen
 from ui import (
     lib_add_song,
     lib_list_songs,
+    lib_remove_song,
     main_menu,
     screen_clear,
     todo_screen,
@@ -21,6 +22,7 @@ class MenuManager:
         self._dispatch_map = {
             Screen.MAIN: main_menu,
             Screen.ADD_SONG: lambda: lib_add_song(self.state.library),
+            Screen.REMOVE_SONG: lambda: lib_remove_song(self.state.library),
             Screen.LIST_SONGS: lambda: lib_list_songs(self.state.library),
             Screen.TODO: todo_screen,
         }

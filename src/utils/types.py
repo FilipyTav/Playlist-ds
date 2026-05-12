@@ -8,6 +8,7 @@ class Screen(Enum):
     # Library
     # ------------------------
     ADD_SONG = auto()
+    REMOVE_SONG = auto()
     LIST_SONGS = auto()
     # ------------------------
 

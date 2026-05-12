@@ -59,6 +59,9 @@ def main_menu() -> Screen:
         case "1":
             return Screen.ADD_SONG
 
+        case "2":
+            return Screen.REMOVE_SONG
+
         case "4":
             return Screen.LIST_SONGS
 
@@ -122,6 +125,34 @@ def lib_add_song(library: MusicLibrary) -> Screen:
 def lib_list_songs(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
+
+    choice = input(NAV_PROMPT).strip().lower()
+    nav = handle_global_nav(choice)
+    if nav:
+        return nav
+    return Screen.BACK
+
+
+def lib_remove_song(library: MusicLibrary) -> Screen:
+    screen_clear()
+
+    print("=" * 40)
+    print(f"{'REMOVER MÚSICA':^40}")
+    print("=" * 40)
+
+    def validate_id(v):
+        try:
+            return int(v) >= 0
+        except ValueError:
+            return False
+
+    id_str: str = get_and_validate_input(
+        "ID", validator=validate_id, error_msg="ID deve ser um número positivo"
+    )
+    id: int = int(id_str)
+
+    # print("-" * 40)
+    # print(f"\033[92mMúsica '{title}' removida com sucesso!\033[0m")
 
     choice = input(NAV_PROMPT).strip().lower()
     nav = handle_global_nav(choice)
