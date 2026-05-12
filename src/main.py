@@ -9,7 +9,9 @@ def main():
         Music("Test", "Me", "Electronic", 60),
         Music("Blinding Lights", "The Weeknd", "Synthwave", 171),
         Music("Supercalifragilisticexpialidocious", "Dick Van Dyke", "Musical", 144),
+        #
         Music("Heal the World", "Michael Jackson", "Pop Ballad", 81),
+        Music("Chicago", "Michael Jackson", "Contemporary R&B", 101),
         Music("The Way You Make Me Feel", "Michael Jackson", "Pop", 114),
         Music("Wanna Be Startin' Somethin'", "Michael Jackson", "Post-Disco", 122),
         Music("Bad", "Michael Jackson", "Dance-Pop", 133),

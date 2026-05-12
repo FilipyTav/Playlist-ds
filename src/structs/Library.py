@@ -124,17 +124,17 @@ class MusicLibrary:
 
     def remove_by_id(self, id: int) -> bool:
         """Remove music by id"""
-        if id < 0:
-            print(f"(ERROR): Invalid ID: {id}.")
-            return False
-
-        if self.is_empty():
+        if id < 0 or self.is_empty():
             return False
 
         assert self.__head
+        # Removes the head
         if self.__head.data.id == id:
             self.__head = self.__head.next
             self.__count -= 1
+
+            if self.__count == 0:
+                self.__tail = None
             return True
 
         current: SMusicNode | None = self.__head
@@ -142,8 +142,13 @@ class MusicLibrary:
         # Avoids searching tail
         while current and current.next:
             if current.next.data.id == id:
-                assert current.next
-                current.next = current.next.next
+                node_to_remove: SMusicNode = current.next
+            
+                if node_to_remove == self.__tail:
+                    self.__tail = current
+                
+                current.next = node_to_remove.next
+                
                 self.__count -= 1
                 return True
 
