@@ -3,8 +3,7 @@ import os
 from music import Music
 from structs.Library import MusicLibrary
 from utils.colors import Colors
-from utils.errors import EmptyValueError, NegativeNumberError
-from utils.input import get_and_validate_input
+from utils.input import get_and_validate_input, get_nav_input
 from utils.strings import (
     SEPARATOR_WIDTH,
     SUB_SEPARATOR,
@@ -16,21 +15,6 @@ from utils.types import Screen, ScreenConfig
 
 def screen_clear():
     os.system("cls" if os.name == "nt" else "clear")
-
-
-NAV_PROMPT: str = "\n[B] Voltar | [M] Início | [Q] Sair\n> "
-
-
-def handle_global_nav(choice: str) -> Screen | None:
-    match clean_string(choice):
-        case "b":
-            return Screen.BACK
-        case "m":
-            return Screen.MAIN
-        case "q":
-            return Screen.EXIT
-        case _:
-            return None
 
 
 # Main
@@ -48,9 +32,7 @@ def main_menu(registry: list[ScreenConfig]) -> Screen:
     for i, config in enumerate(options, 1):
         print(f"{i}. {config.label}")
 
-    choice: str = input(NAV_PROMPT).strip().lower()
-
-    nav = handle_global_nav(choice)
+    nav, choice = get_nav_input()
     if nav:
         return nav
 
@@ -111,8 +93,7 @@ def lib_add_song(library: MusicLibrary) -> Screen:
         f"{Colors.LIGHT_GREEN} Música '{title}' adicionada com sucesso!{Colors.RESET}"
     )
 
-    choice = input(NAV_PROMPT).strip().lower()
-    nav = handle_global_nav(choice)
+    nav, _ = get_nav_input()
     if nav:
         return nav
 
@@ -124,8 +105,7 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
     library.display_all_cards()
 
     print("[A] Listar novamente", end="")
-    choice = clean_string(input(f"{NAV_PROMPT}"))
-    nav = handle_global_nav(choice)
+    nav, choice = get_nav_input()
     if nav:
         return nav
     if choice == "a":
@@ -139,8 +119,7 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
     library.display_all_cards()
 
     if library.is_empty():
-        choice = input(f"{NAV_PROMPT}").strip().lower()
-        nav = handle_global_nav(choice)
+        nav, _ = get_nav_input()
         if nav:
             return nav
 
@@ -179,11 +158,11 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
     else:
         print(f"Algo deu errado. Não foi possível remover {rm_song.title}")
 
-    choice = input(f"\n [A] Remover outra | {NAV_PROMPT[1:]}").strip().lower()
-    nav = handle_global_nav(choice)
+    print("\n[A] Remover outra")
+    nav, choice = get_nav_input(False)
     if nav:
         return nav
-    match clean_string(choice):
+    match choice:
         case "a":
             return Screen.STAY
 
@@ -197,8 +176,8 @@ def lib_search_song(library: MusicLibrary) -> Screen:
     if library.is_empty():
         print(SUB_SEPARATOR)
         print("A biblioteca está vazia!")
-        choice = input(f"{NAV_PROMPT}").strip().lower()
-        nav = handle_global_nav(choice)
+
+        nav, _ = get_nav_input()
         if nav:
             return nav
 
@@ -242,10 +221,13 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         else:
             print(f"Não foi possível econtrar {name} na biblioteca.")
 
-    choice = input(f"{NAV_PROMPT}").strip().lower()
-    nav = handle_global_nav(choice)
+    print("[A] Fazer busca")
+    nav, choice = get_nav_input()
     if nav:
         return nav
+
+    if choice == "a":
+        return Screen.STAY
 
     return Screen.BACK
 
@@ -255,9 +237,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
 def todo_screen() -> Screen:
     print("Screen yet to be implemented")
-    choice = input(NAV_PROMPT).strip().lower()
-
-    nav = handle_global_nav(choice)
+    nav, _ = get_nav_input()
     if nav:
         return nav
     return Screen.STAY

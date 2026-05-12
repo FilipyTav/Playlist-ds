@@ -5,6 +5,8 @@ def clean_string(string: str):
     return string.strip().lower()
 
 
+NAV_PROMPT: str = "\n[B] Voltar | [M] Início | [Q] Sair\n> "
+
 SEPARATOR_WIDTH: int = 45
 SEPARATOR: str = "=" * SEPARATOR_WIDTH
 SUB_SEPARATOR: str = "-" * SEPARATOR_WIDTH
