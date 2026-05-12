@@ -1,8 +1,8 @@
 from utils.colors import Colors
 
 
-def clean_string(string: str):
-    return string.strip().lower()
+def clean_string(string: str, lcase: bool = True):
+    return string.strip().lower() if lcase else string.strip()
 
 
 NAV_PROMPT: str = "\n[B] Voltar | [M] Início | [Q] Sair\n> "

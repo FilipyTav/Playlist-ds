@@ -14,7 +14,7 @@ def get_and_validate_input(
         if cancel_key:
             print(f"\n[{cancel_key}] para cancelar")
 
-        value: str = clean_string(input(f"> {prompt}: "))
+        value: str = clean_string(input(f"> {prompt}: "), False)
 
         if value == clean_string(cancel_key):
             return None

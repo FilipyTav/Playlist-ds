@@ -63,17 +63,23 @@ def lib_add_song(library: MusicLibrary) -> Screen:
     print(" Preencha os campos abaixo:")
     print("-" * SEPARATOR_WIDTH)
 
-    title: str = get_and_validate_input(
-        "Título", error_msg="O título não pode estar vazio"
+    title: str | None = get_and_validate_input(
+        "Título", error_msg="O título não pode estar vazio", cancel_key="B"
     )
+    if not title:
+        return Screen.BACK
 
-    artist: str = get_and_validate_input(
-        "Artista", error_msg="O artista não pode estar vazio"
+    artist: str | None = get_and_validate_input(
+        "Artista", error_msg="O artista não pode estar vazio", cancel_key="B"
     )
+    if not artist:
+        return Screen.BACK
 
-    genre: str = get_and_validate_input(
-        "Gênero", error_msg="O gênero não pode estar vazio"
+    genre: str | None = get_and_validate_input(
+        "Gênero", error_msg="O gênero não pode estar vazio", cancel_key="B"
     )
+    if not genre:
+        return Screen.BACK
 
     def validate_bpm(v):
         try:
@@ -81,9 +87,15 @@ def lib_add_song(library: MusicLibrary) -> Screen:
         except ValueError:
             return False
 
-    bpm_str: str = get_and_validate_input(
-        "BPM", validator=validate_bpm, error_msg="BPM deve ser um número positivo"
+    bpm_str: str | None = get_and_validate_input(
+        "BPM",
+        validator=validate_bpm,
+        error_msg="BPM deve ser um número positivo",
+        cancel_key="B",
     )
+
+    if not bpm_str:
+        return Screen.BACK
 
     bpm = int(bpm_str)
 
@@ -193,6 +205,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
     error_msg: str = ""
     song: Music | None = None
+    # TODO: search multiple at the same time
     if op == "1":
         id_str: str | None = get_and_validate_input(
             "Busca por ID", validate_id, "ID deve ser um número positivo!", "B"
