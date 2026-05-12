@@ -2,6 +2,7 @@ import os
 
 from music import Music
 from structs.Library import MusicLibrary
+from utils.colors import Colors
 from utils.errors import EmptyValueError, NegativeNumberError
 from utils.input import get_and_validate_input
 from utils.strings import (
@@ -61,7 +62,7 @@ def main_menu(registry: list[ScreenConfig]) -> Screen:
     except ValueError:
         pass
 
-    print("\033[91m[!] Opção inválida!\033[0m")
+    print(f"{Colors.RED}[!] Opção inválida!{Colors.RESET}")
     return Screen.STAY
 
 
@@ -105,8 +106,10 @@ def lib_add_song(library: MusicLibrary) -> Screen:
 
     library.append(Music(title, artist, genre, bpm))
 
-    print("-" * 40)
-    print(f"\033[92mMúsica '{title}' adicionada com sucesso!\033[0m")
+    print(SUB_SEPARATOR)
+    print(
+        f"{Colors.LIGHT_GREEN} Música '{title}' adicionada com sucesso!{Colors.RESET}"
+    )
 
     choice = input(NAV_PROMPT).strip().lower()
     nav = handle_global_nav(choice)
@@ -170,7 +173,9 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
 
     if library.remove_by_id(rm_song.id):
         print(SUB_SEPARATOR)
-        print(f"\033[92mMúsica '{rm_song.title}' removida com sucesso!\033[0m")
+        print(
+            f"{Colors.LIGHT_GREEN} Música '{rm_song.title}' removida com sucesso!{Colors.RESET}"
+        )
     else:
         print(f"Algo deu errado. Não foi possível remover {rm_song.title}")
 
