@@ -185,6 +185,7 @@ class MusicLibrary:
 
                 if min <= song.bpm <= max:
                     self.playlists[k].enqueue(song)
+                    break
             current = current.next
 
         return True
