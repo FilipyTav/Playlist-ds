@@ -154,13 +154,17 @@ class MusicLibrary:
             return False
 
         assert self.__head
+        m: Music
         # Removes the head
         if self.__head.data.id == id:
+            m = self.__head.data
+            self.__remove_from_registered(m.title, m.artist)
             self.__head = self.__head.next
             self.__count -= 1
 
             if self.__count == 0:
                 self.__tail = None
+
             return True
 
         current: SMusicNode | None = self.__head
@@ -168,6 +172,8 @@ class MusicLibrary:
         # Avoids searching tail
         while current and current.next:
             if current.next.data.id == id:
+                m = current.next.data
+                self.__remove_from_registered(m.title, m.artist)
                 node_to_remove: SMusicNode = current.next
 
                 if node_to_remove == self.__tail:
@@ -188,6 +194,20 @@ class MusicLibrary:
         a: str = clean_string(artist)
         sl: set[str] | None = self.__registered.get(a)
         return t in sl if sl else False
+
+    def __remove_from_registered(self, title: str, artist: str) -> bool:
+        tc: str = clean_string(title)
+        ac: str = clean_string(artist)
+
+        if ac in self.__registered:
+            self.__registered[ac].discard(tc)
+
+            if not self.__registered[ac]:
+                del self.__registered[ac]
+
+            return True
+
+        return False
 
     def fill_playlists(self) -> bool:
         if self.is_empty():
