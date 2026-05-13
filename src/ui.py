@@ -331,16 +331,16 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
             return nav
         return Screen.BACK
 
-    print(f"\n{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+    print(f"{Colors.CYAN}{SUB_SEPARATOR}{Colors.RESET}")
     print(f"{Colors.BOLD}{Colors.GREEN}   > TOCANDO AGORA{Colors.RESET}")
-    print(f"{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+    print(f"{Colors.CYAN}{SUB_SEPARATOR}{Colors.RESET}")
 
     print(f"\n   {Colors.WHITE}Título:  {Colors.BOLD}{music.title}{Colors.RESET}")
     print(f"   {Colors.WHITE}Artista: {Colors.LIGHT_GRAY}{music.artist}{Colors.RESET}")
     print(f"   {Colors.WHITE}Gênero:  {Colors.LIGHT_GRAY}{music.genre}{Colors.RESET}")
     print(f"   {Colors.WHITE}BPM:     {Colors.GOLD}{music.bpm}{Colors.RESET}")
 
-    print(f"\n{Colors.CYAN}{SEPARATOR}{Colors.RESET}")
+    print(f"\n{Colors.CYAN}{SUB_SEPARATOR}{Colors.RESET}")
 
     history.enqueue(music)
 
