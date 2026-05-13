@@ -1,6 +1,6 @@
 from structs.Music import DMusicNode, Music
 from utils.colors import Colors
-from utils.strings import SEPARATOR_WIDTH, format_error, truncate_string
+from utils.strings import SEPARATOR_WIDTH, centered_msg, format_error, truncate_string
 
 
 # Queue
@@ -80,9 +80,7 @@ class History:
     def display_for_user(self):
         """Display table"""
         if self.is_empty():
-            print(
-                f"{Colors.YELLOW}{Colors.BOLD}{'Histórico vazio':^{SEPARATOR_WIDTH}}{Colors.RESET}"
-            )
+            print(centered_msg("Histórico vazio"))
             return
 
         header: str = (

@@ -8,7 +8,9 @@ from utils.colors import Colors
 from utils.input import get_and_validate_input, get_nav_input, validate_id
 from utils.strings import (
     SEPARATOR,
+    SEPARATOR_WIDTH,
     SUB_SEPARATOR,
+    centered_msg,
     format_error,
     print_section_end,
     print_section_name,
@@ -182,8 +184,8 @@ def lib_search_song(library: MusicLibrary) -> Screen:
     print_section_name("PROCURAR MÚSICA")
 
     if library.is_empty():
-        print(SUB_SEPARATOR)
-        print("A biblioteca está vazia!")
+        print(centered_msg("Biblioteca vazia"))
+        print_section_end()
 
         nav, _ = get_nav_input()
         if nav:
@@ -196,6 +198,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         except ValueError:
             return False
 
+    print(SUB_SEPARATOR)
     op: str | None = get_and_validate_input(
         "Buscar por ID[1] ou nome[2]?", validate_op, "Escolha uma das opções", "B"
     )
@@ -205,8 +208,8 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
     error_msg: str = ""
     songs: list[Music] = []
-    # TODO: search multiple at the same time
     if op == "1":
+        # TODO: search multiple at the same time
         id_str: str | None = get_and_validate_input(
             "Busca por ID", validate_id, "ID deve ser um número positivo!", "B"
         )
