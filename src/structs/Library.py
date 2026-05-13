@@ -262,7 +262,6 @@ class MusicLibrary:
             print("\n" + "━" * SEPARATOR_WIDTH)
 
     def __str__(self) -> str:
-        """Quick summary"""
         return f"MusicLibrary(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_library(self) -> None:

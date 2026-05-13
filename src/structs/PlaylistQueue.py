@@ -124,7 +124,7 @@ class Playlist:
 
         # 3. Footer
         print(f"{Colors.DARK_GRAY}{'—' * 60}{Colors.RESET}")
-        print(f"{Colors.MAGENTA}Total: {self.len()} músicas{Colors.RESET}\n")
+        print(f"{Colors.MAGENTA}Total: {self.len()} música(s){Colors.RESET}\n")
 
     def display_all_cards(self):
         """Prints every song in the playlist."""

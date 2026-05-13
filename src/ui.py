@@ -273,6 +273,8 @@ def lib_fill_playlists(library: MusicLibrary) -> Screen:
     else:
         print(format_error("Não foi possível criar as playlists"))
 
+    print_section_end()
+
     nav, _ = get_nav_input()
     if nav:
         return nav

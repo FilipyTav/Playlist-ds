@@ -48,6 +48,9 @@ class History:
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
 
+    def len(self) -> int:
+        return self.__count
+
     def clear(self) -> None:
         self.__head = None
         self.__tail = None
@@ -55,15 +58,15 @@ class History:
 
     def __str__(self) -> str:
         """Quick summary"""
-        return f"Histórico(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
+        return f"Histórico(Size: {self.len()}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_for_admin(self):
         """Visual chain"""
-        if self.__count == 0:
+        if self.is_empty():
             print("\nEmpty Playlist.")
             return
 
-        print(f"\n--- Fila Histórico ({self.__count} Tracks) ---")
+        print(f"\n--- Fila Histórico ({self.len()} Tracks) ---")
 
         current = self.__head
         chain = []
@@ -105,7 +108,7 @@ class History:
 
         # 3. Footer
         print(f"{Colors.DARK_GRAY}{'—' * 60}{Colors.RESET}")
-        print(f"{Colors.MAGENTA}Total: {self.__count} música(s){Colors.RESET}")
+        print(f"{Colors.MAGENTA}Total: {self.len()} música(s){Colors.RESET}")
 
     def display_all_cards(self):
         """Prints every song in the playlist."""
