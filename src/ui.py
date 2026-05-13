@@ -12,7 +12,7 @@ from utils.strings import (
     SUB_SEPARATOR,
     clean_string,
     format_error,
-    print_end_section,
+    print_section_end,
     print_section_name,
 )
 from utils.types import Screen, ScreenConfig
@@ -28,15 +28,16 @@ def screen_clear():
 
 def main_menu(registry: list[ScreenConfig]) -> Screen:
     print_section_name("--- BIBLIOTECA ---")
-    print("\nEscolha uma opção: ")
+    print("Escolha uma opção: \n")
 
     # All screens belonging to MAIN
     options: list[ScreenConfig] = [c for c in registry if c.parent == Screen.MAIN]
 
     # Options
     for i, config in enumerate(options, 1):
-        print(f"{i}. {config.label}")
+        print(f"{Colors.BLUE}{i}{Colors.RESET}. {config.label}")
 
+    print_section_end()
     nav, choice = get_nav_input()
     if nav:
         return nav
@@ -364,6 +365,7 @@ def lib_see_history(history: History) -> Screen:
 
     return Screen.BACK
 
+
 def lib_see_statistics(library: MusicLibrary) -> Screen:
     screen_clear()
     print_section_name("--Estatísticas--")
@@ -379,7 +381,7 @@ def lib_see_statistics(library: MusicLibrary) -> Screen:
     for name, size in playlist_sizes.items():
         print(f"{Colors.WHITE}{name:<20}{Colors.RESET} | {Colors.BLUE}{size:<10}{Colors.RESET}")
     
-    print_end_section()
+    print_section_end()
 
     print("\n[A] Exibir novamente")
     nav, choice = get_nav_input(False)

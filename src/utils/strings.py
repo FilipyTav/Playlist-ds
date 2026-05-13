@@ -19,10 +19,10 @@ def print_section_name(name: str, sub: bool = False, color: Colors = Colors.MAGE
     print(f"{Colors.BOLD}{name:^{SEPARATOR_WIDTH}}")
     print(sep + f"{Colors.RESET}\n")
 
-def print_end_section(sub: bool = False, color: Colors = Colors.MAGENTA) -> None:
+def print_section_end(sub: bool = False, color: Colors = Colors.MAGENTA) -> None:
     sep: str = SEPARATOR if not sub else SUB_SEPARATOR
 
-    print(f"\n{color}{Colors.BOLD} {sep} {Colors.RESET}")
+    print(f"\n{color}{Colors.BOLD}{sep}{Colors.RESET}")
 
 
 def format_error(msg: str) -> str:
