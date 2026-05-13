@@ -108,19 +108,20 @@ class MusicLibrary:
         """Add to start"""
         return self.insert_at(0, m)
 
-    def find_by_name(self, name: str) -> Music | None:
+    def find_by_name(self, name: str) -> list[Music]:
         if self.is_empty():
             print("Lista vazia.")
-            return None
+            return []
 
+        matches: list[Music] = []
         current: SMusicNode | None = self.__head
         while current:
             if clean_string(current.data.title) == clean_string(name):
-                return current.data
+                matches.append(current.data)
 
             current = current.next
 
-        return None
+        return matches
 
     def find_by_id(self, id: int) -> Music | None:
         if self.is_empty() or id < 0:

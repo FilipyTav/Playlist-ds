@@ -204,7 +204,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         return Screen.BACK
 
     error_msg: str = ""
-    song: Music | None = None
+    songs: list[Music] = []
     # TODO: search multiple at the same time
     if op == "1":
         id_str: str | None = get_and_validate_input(
@@ -216,7 +216,10 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
         id: int = int(id_str)
 
-        song = library.find_by_id(id)
+        song: Music | None = library.find_by_id(id)
+        if song:
+            songs.append(song)
+
         error_msg = f"Não foi possível econtrar música (ID:{id}) na biblioteca."
     elif op == "2":
         title: str | None = get_and_validate_input(
@@ -226,18 +229,19 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         if not title:
             return Screen.BACK
 
-        song = library.find_by_name(title)
+        songs = library.find_by_name(title)
         error_msg = f"Não foi possível encontrar '{title}' na biblioteca."
 
-    if song:
-        msg: str = f" Música '{song.title}' encontrada! "
+    if len(songs):
+        msg: str = f" Música '{songs[0].title}' encontrada! "
         border: str = "═" * len(msg)
 
         print(f"\n{Colors.CYAN}╔{border}╗")
         print(f"║{Colors.BOLD}{Colors.LIGHT_GREEN}{msg}{Colors.RESET}{Colors.CYAN}║")
         print(f"╚{border}╝{Colors.RESET}")
 
-        song.display_card()
+        for s in songs:
+            s.display_card()
     else:
         print(format_error(error_msg))
 
