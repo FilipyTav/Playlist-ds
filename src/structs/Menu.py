@@ -114,7 +114,7 @@ class MenuManager:
                 break
 
             screen_clear()
-            self.__screen_history.print_stack()
+            # self.__screen_history.print_stack()
             new_sc = self._handle_nav(screen)
 
             self._navigate(screen, new_sc)
