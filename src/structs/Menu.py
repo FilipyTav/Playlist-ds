@@ -104,11 +104,17 @@ class MenuManager:
             return handler(self.registry)  # type: ignore
 
         elif screen == Screen.CHOOSE_PLAYLIST:
-            next_screen, selected_key = handler()  # type: ignore
+            selected_key: str | None = handler()  # type: ignore
 
-            if next_screen == Screen.PLAYER and selected_key:
-                return self.__handle_player(selected_key)
-            return next_screen
+            if selected_key:
+                self.state.selected_playlist = selected_key
+
+                return self.__handle_player()
+
+            return Screen.BACK
+
+        elif screen == Screen.PLAYER:
+            return self.__handle_player()
 
         return handler()  # type: ignore
 
@@ -131,5 +137,10 @@ class MenuManager:
         else:
             self.__screen_history.push(new_sc)
 
-    def __handle_player(self, key: str) -> Screen:
-        return lib_play_next(self.state.library, self.state.history, key)
+    def __handle_player(self) -> Screen:
+        if not self.state.selected_playlist:
+            return Screen.CHOOSE_PLAYLIST
+
+        return lib_play_next(
+            self.state.library, self.state.history, self.state.selected_playlist
+        )

@@ -16,6 +16,7 @@ class Screen(Enum):
     FILL_PLS = auto()
     PLAYER = auto()
     CHOOSE_PLAYLIST = auto()
+    SEE_PLAYLIST = auto()
     # ------------------------
 
     # Helpers
@@ -32,6 +33,7 @@ class Screen(Enum):
 class AppState:
     library: MusicLibrary
     history: History
+    selected_playlist: str | None = None
 
 
 @dataclass

@@ -263,7 +263,7 @@ def lib_fill_playlists(library: MusicLibrary) -> Screen:
     return Screen.BACK
 
 
-def lib_choose_playlist(library: MusicLibrary) -> tuple[Screen, str | None]:
+def lib_choose_playlist(library: MusicLibrary) -> str | None:
     screen_clear()
     print_section_name("ESCOLHA UMA PLAYLIST DE HUMOR")
 
@@ -284,12 +284,12 @@ def lib_choose_playlist(library: MusicLibrary) -> tuple[Screen, str | None]:
     )
 
     if choice is None:
-        return Screen.BACK, None
+        return None
 
     index: int = int(choice) - 1
     selected_key = options[index]
 
-    return Screen.PLAYER, selected_key
+    return selected_key
 
 
 def lib_play_next(library: MusicLibrary, history: History, selected_key: str) -> Screen:
