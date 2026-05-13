@@ -112,7 +112,7 @@ class MenuManager:
 
                 return self.__handle_player()
 
-            return Screen.BACK
+            return Screen.MAIN
 
         elif screen == Screen.PLAYER:
             return self.__handle_player()
