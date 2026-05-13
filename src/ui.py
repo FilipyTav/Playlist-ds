@@ -66,7 +66,7 @@ def lib_add_song(library: MusicLibrary) -> Screen:
     print_section_name("ADICIONAR NOVA MÚSICA")
 
     print(" Preencha os campos abaixo:")
-    print("-" * SEPARATOR_WIDTH)
+    print(SUB_SEPARATOR)
 
     data: dict[str, str] = {}
     fields: list = [
@@ -89,7 +89,7 @@ def lib_add_song(library: MusicLibrary) -> Screen:
         if val is None:
             return Screen.BACK
 
-        data[key] = val
+        data[key] = val.capitalize()
 
     success: bool = library.append(
         Music(data["title"], data["artist"], data["genre"], int(data["bpm"]))
