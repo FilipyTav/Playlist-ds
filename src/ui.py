@@ -325,8 +325,12 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
         f"\n{Colors.DARK_GRAY}Música adicionada ao seu histórico de reprodução.{Colors.RESET}"
     )
 
-    print(f"\n{Colors.MAGENTA}Pressione Enter para continuar...{Colors.RESET}")
-    input()
+    print("[A] Próxima na playlist")
+    nav, choice = get_nav_input(False)
+    if nav:
+        return nav
+    if choice == "a":
+        return Screen.STAY
 
     return Screen.BACK
 
