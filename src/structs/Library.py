@@ -256,6 +256,10 @@ class MusicLibrary:
 
         print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR + f"{Colors.RESET}")
 
-    def show_statistics(self) -> None:
-        print("Statistics!!!")
-        return
+    def get_statistics(self) -> tuple[int, dict[str, int]]:
+        """Returns [Total songs, playlist_sizes],"""
+        total_songs: int = self.__len__()
+        playlist_sizes: dict[str, int] = {}
+        for k, v in self.playlists.items():
+            playlist_sizes[k] = v.len()
+        return (total_songs, playlist_sizes)

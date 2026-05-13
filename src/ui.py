@@ -364,6 +364,10 @@ def lib_see_history(history: History) -> Screen:
     return Screen.BACK
 
 def lib_see_statistics(library: MusicLibrary) -> Screen:
+    screen_clear()
+    print_section_name("--Estatísticas--")
+    statistics: tuple[int, dict[str, int]] = library.get_statistics()
+
     print("[A] Exibir novamente")
     nav, choice = get_nav_input(False)
     if nav: return nav
