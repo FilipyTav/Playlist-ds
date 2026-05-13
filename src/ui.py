@@ -363,6 +363,14 @@ def lib_see_history(history: History) -> Screen:
 
     return Screen.BACK
 
+def lib_see_statistics(library: MusicLibrary) -> Screen:
+    print("[A] Exibir novamente")
+    nav, choice = get_nav_input(False)
+    if nav: return nav
+    if choice == "a":
+        return Screen.STAY
+
+    return Screen.BACK
 
 # --------------------------------
 

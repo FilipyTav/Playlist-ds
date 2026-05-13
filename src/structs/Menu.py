@@ -12,6 +12,7 @@ from ui import (
     lib_search_song,
     lib_see_history,
     lib_see_playlist,
+    lib_see_statistics,
     main_menu,
     screen_clear,
     todo_screen,
@@ -81,6 +82,12 @@ class MenuManager:
                 Screen.SEE_HISTORY,
                 "Ver histórico",
                 lambda: lib_see_history(self.state.history),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.SEE_PLAYLIST,
+                "Ver estatísticas",
+                lambda: lib_see_statistics(self.state.library),
                 Screen.MAIN,
             ),
             # ------------

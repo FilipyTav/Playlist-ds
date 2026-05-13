@@ -209,7 +209,7 @@ class MusicLibrary:
         """Quick summary"""
         return f"MusicLibrary(Size: {self.__count}, Head: {self.__head.data.title if self.__head else 'None'})"
 
-    def display_library(self):
+    def display_library(self) -> None:
         """Visual chain"""
         if self.is_empty() == 0:
             print("The library is currently empty.")
@@ -227,7 +227,7 @@ class MusicLibrary:
         print("(HEAD)" + " ➔ ".join(chain) + "(TAIL)")
         print("-" * 40)
 
-    def display_all_cards(self):
+    def display_all_cards(self) -> None:
         """Prints every song in the library."""
 
         if self.is_empty():
@@ -255,3 +255,7 @@ class MusicLibrary:
             index += 1
 
         print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR + f"{Colors.RESET}")
+
+    def show_statistics(self) -> None:
+        print("Statistics!!!")
+        return
