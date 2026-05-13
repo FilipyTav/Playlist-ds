@@ -24,8 +24,15 @@ class MusicLibrary:
             "treinar": Playlist(PlaylistInfo("Treinar", "Intenso", 161, 99999)),
         }
 
+        # Avoids repetition
+        self.__registered: dict[str, set[str]] = {}
+
     def insert_at(self, pos: int, m: Music) -> bool:
         """Insert at pos"""
+        if self.has_song(m.title, m.artist):
+            print("\n" + format_error("Música já presente na biblioteca"))
+            return False
+
         if pos < 0 or pos > self.__count:
             print(f"Index out of range: {pos}, the list has {self.__count} element(s)")
             return False
@@ -35,11 +42,9 @@ class MusicLibrary:
         # Empty
         if self.is_empty():
             self.__head = self.__tail = new_node
-            self.__count += 1
-            return True
 
         # new_node is now the head
-        if pos == 0:
+        elif pos == 0:
             new_node.next = self.__head
 
             self.__head = new_node
@@ -62,6 +67,14 @@ class MusicLibrary:
 
             new_node.next = current.next
             current.next = new_node
+
+        ac: str = clean_string(m.artist)
+        tc: str = clean_string(m.title)
+
+        if ac not in self.__registered:
+            self.__registered[ac] = set()
+
+        self.__registered[ac].add(tc)
 
         self.__count += 1
         return True
@@ -170,6 +183,12 @@ class MusicLibrary:
 
         return False
 
+    def has_song(self, title: str, artist: str) -> bool:
+        t: str = clean_string(title)
+        a: str = clean_string(artist)
+        sl: set[str] | None = self.__registered.get(a)
+        return t in sl if sl else False
+
     def fill_playlists(self) -> bool:
         if self.is_empty():
             return False
@@ -263,3 +282,4 @@ class MusicLibrary:
         for k, v in self.playlists.items():
             playlist_sizes[k.capitalize()] = v.len()
         return (total_songs, playlist_sizes)
+

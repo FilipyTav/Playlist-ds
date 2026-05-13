@@ -18,7 +18,7 @@ def main():
         Music("Bad", "Michael Jackson", "Dance-Pop", 133),
         Music("Speed Demon", "Michael Jackson", "Funk Rock", 146),
         #
-        Music("Test", "Me", "Electronic", 200),
+        Music("A", "C", "Electronic", 200),
     ]
 
     library = MusicLibrary()
