@@ -16,6 +16,9 @@ class MenuStack:
     def is_empty(self) -> bool:
         return not self.__top
 
+    def len(self) -> int:
+        return self.__count
+
     def clear(self) -> None:
         self.__top = None
         self.__count = 0

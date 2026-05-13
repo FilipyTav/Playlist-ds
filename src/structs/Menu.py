@@ -142,6 +142,8 @@ class MenuManager:
 
         elif new_sc == Screen.BACK:
             self.__screen_history.pop()
+            if self.__screen_history.len() == 1:
+                self.state.selected_playlist = None
 
         else:
             self.__screen_history.push(new_sc)
