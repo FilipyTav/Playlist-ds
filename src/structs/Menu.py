@@ -66,14 +66,14 @@ class MenuManager:
                 Screen.PLAYER,
                 "Reproduzir música",
                 # Handled in __handle_player
-                lambda: (),
+                self.__handle_player,
                 Screen.MAIN,
             ),
             ScreenConfig(
                 Screen.SEE_PLAYLIST,
                 "Ver playlist",
                 # Handled in __handle_see_playlist
-                lambda: (),
+                self.__handle_see_playlist,
                 Screen.MAIN,
             ),
             # ------------
@@ -120,20 +120,9 @@ class MenuManager:
             if selected_key:
                 self.state.selected_playlist = selected_key
 
-                previous_sc: Screen | None = self.__screen_history.peek_at(1)
-
-                if previous_sc == Screen.SEE_PLAYLIST:
-                    return self.__handle_see_playlist()
-
-                return self.__handle_player()
+                return Screen.BACK
 
             return Screen.MAIN
-
-        elif screen == Screen.SEE_PLAYLIST:
-            return self.__handle_see_playlist()
-
-        elif screen == Screen.PLAYER:
-            return self.__handle_player()
 
         return handler()  # type: ignore
 
@@ -153,7 +142,6 @@ class MenuManager:
 
         elif new_sc == Screen.BACK:
             self.__screen_history.pop()
-            self.state.selected_playlist = None
 
         else:
             self.__screen_history.push(new_sc)
