@@ -261,5 +261,5 @@ class MusicLibrary:
         total_songs: int = self.__len__()
         playlist_sizes: dict[str, int] = {}
         for k, v in self.playlists.items():
-            playlist_sizes[k] = v.len()
+            playlist_sizes[k.capitalize()] = v.len()
         return (total_songs, playlist_sizes)
