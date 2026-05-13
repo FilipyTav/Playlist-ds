@@ -369,13 +369,15 @@ def lib_see_statistics(library: MusicLibrary) -> Screen:
 
     total_songs, playlist_sizes = library.get_statistics()
 
-    print(f"Total de Músicas: {total_songs}")
-    print(SEPARATOR)
-    print(f"{'Playlist':<20} | {'Músicas':<10}")
-    print(SEPARATOR)
+    print(f"{Colors.BOLD}{Colors.CYAN}Total de Músicas: {Colors.RESET}{Colors.LIGHT_GREEN}{total_songs}{Colors.RESET}")
+    print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
 
+    print(f"{Colors.BOLD}{Colors.GOLD}{'Playlist':<20} | {'Músicas':<10}{Colors.RESET}")
+    print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
+
+    # Table Rows
     for name, size in playlist_sizes.items():
-        print(f"{name:<20} | {size:<10}")
+        print(f"{Colors.WHITE}{name:<20}{Colors.RESET} | {Colors.BLUE}{size:<10}{Colors.RESET}")
 
     print("\n[A] Exibir novamente")
     nav, choice = get_nav_input(False)
