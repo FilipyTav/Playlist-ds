@@ -1,29 +1,30 @@
-from dataclasses import dataclass
+from enum import Enum
 
-
-@dataclass
-class Colors:
-    BLUE: str = "\033[94m"
-    GOLD: str = "\033[93m"
-    CYAN: str = "\033[96m"
-    RED: str = "\033[91m"
-    MAGENTA: str = "\033[95m"
-    YELLOW: str = "\033[93m"
-    GREEN: str = "\033[32m"
-    LIGHT_GREEN: str = "\033[92m"
-
-    WHITE: str = "\033[97m"
-    LIGHT_GRAY: str = "\033[37m"
-    DARK_GRAY: str = "\033[90m"
-    BLACK: str = "\033[30m"
+class Colors(Enum):
+    # Colors
+    BLUE = "\033[94m"
+    GOLD = "\033[93m"
+    CYAN = "\033[96m"
+    RED = "\033[91m"
+    MAGENTA = "\033[95m"
+    YELLOW = "\033[93m"
+    GREEN = "\033[32m"
+    LIGHT_GREEN = "\033[92m"
+    WHITE = "\033[97m"
+    LIGHT_GRAY = "\033[37m"
+    DARK_GRAY = "\033[90m"
+    BLACK = "\033[30m"
 
     # Formatting
-    BOLD: str = "\033[1m"
-    UNDERLINE: str = "\033[4m"
-    ITALIC: str = "\033[3m"
-    REVERSE: str = "\033[7m"
-    RESET: str = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+    ITALIC = "\033[3m"
+    REVERSE = "\033[7m"
+    RESET = "\033[0m"
 
     # Background
-    BG_RED: str = "\033[41m"
-    BG_GREEN: str = "\033[42m"
+    BG_RED = "\033[41m"
+    BG_GREEN = "\033[42m"
+
+    def __str__(self) -> str:
+        return self.value

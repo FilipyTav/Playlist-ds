@@ -12,6 +12,7 @@ from utils.strings import (
     SUB_SEPARATOR,
     clean_string,
     format_error,
+    print_end_section,
     print_section_name,
 )
 from utils.types import Screen, ScreenConfig
@@ -375,9 +376,10 @@ def lib_see_statistics(library: MusicLibrary) -> Screen:
     print(f"{Colors.BOLD}{Colors.GOLD}{'Playlist':<20} | {'Músicas':<10}{Colors.RESET}")
     print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
 
-    # Table Rows
     for name, size in playlist_sizes.items():
         print(f"{Colors.WHITE}{name:<20}{Colors.RESET} | {Colors.BLUE}{size:<10}{Colors.RESET}")
+    
+    print_end_section()
 
     print("\n[A] Exibir novamente")
     nav, choice = get_nav_input(False)
