@@ -10,6 +10,7 @@ from ui import (
     lib_play_next,
     lib_remove_song,
     lib_search_song,
+    lib_see_history,
     lib_see_playlist,
     main_menu,
     screen_clear,
@@ -74,6 +75,12 @@ class MenuManager:
                 "Ver playlist",
                 # Handled in __handle_see_playlist
                 self.__handle_see_playlist,
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.SEE_HISTORY,
+                "Ver histórico",
+                lambda: lib_see_history(self.state.history),
                 Screen.MAIN,
             ),
             # ------------

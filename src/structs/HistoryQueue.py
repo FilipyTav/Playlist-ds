@@ -1,6 +1,6 @@
 from music import DMusicNode, Music
 from utils.colors import Colors
-from utils.strings import truncate_string
+from utils.strings import format_error, truncate_string
 
 
 # Queue
@@ -80,6 +80,7 @@ class History:
     def display_for_user(self):
         """Display table"""
         if self.is_empty():
+            print(format_error("Histórico vazio"))
             return
 
         header: str = (

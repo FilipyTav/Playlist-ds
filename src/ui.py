@@ -345,6 +345,21 @@ def lib_see_playlist(playlist: Playlist) -> Screen:
     return Screen.BACK
 
 
+def lib_see_history(history: History) -> Screen:
+    screen_clear()
+    print_section_name("--Histórico--")
+
+    history.display_for_user()
+    print("[A] Mostrar novamente")
+    nav, choice = get_nav_input(False)
+    if nav:
+        return nav
+    if choice == "a":
+        return Screen.STAY
+
+    return Screen.BACK
+
+
 # --------------------------------
 
 

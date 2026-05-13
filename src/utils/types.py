@@ -17,6 +17,7 @@ class Screen(Enum):
     PLAYER = auto()
     CHOOSE_PLAYLIST = auto()
     SEE_PLAYLIST = auto()
+    SEE_HISTORY = auto()
     # ------------------------
 
     # Helpers
