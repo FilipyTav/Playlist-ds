@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from structs.Music import DMusicNode, Music
 from utils.colors import Colors
-from utils.strings import format_error, truncate_string
+from utils.strings import centered_msg, format_error, truncate_string
 
 
 @dataclass
@@ -40,7 +40,6 @@ class Playlist:
 
     def dequeue(self) -> Music | None:
         if self.is_empty():
-            print("No element to dequeue - list empty")
             return None
 
         assert self.__head
@@ -92,10 +91,9 @@ class Playlist:
         print("-" * 40)
 
     def display_for_user(self):
-        """Playlist display with table formatting"""
         if self.is_empty():
-            print(format_error(f"Playlist {self.info.name} está vazia"))
-            print(f"{Colors.YELLOW} Monte as filas na opção 5.{Colors.RESET}\n")
+            print(centered_msg(f"Playlist {self.info.name} está vazia"))
+            print(centered_msg("Monte as filas na opção 5"))
             return
 
         print(

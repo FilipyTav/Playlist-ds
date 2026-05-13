@@ -29,7 +29,6 @@ class History:
 
     def dequeue(self) -> Music | None:
         if self.is_empty():
-            print("No element to dequeue - list empty")
             return None
 
         assert self.__head

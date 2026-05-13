@@ -292,6 +292,8 @@ def lib_choose_playlist(library: MusicLibrary) -> str | None:
         p: Playlist = library.playlists[name]
         print(f" {i}. {name.capitalize():<10} ({p.info.humor})")
 
+    print_section_end()
+
     def playlist_validator(v: str) -> bool:
         return v.isdigit() and 1 <= int(v) <= len(options)
 
@@ -320,8 +322,10 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
     music: Music | None = playlist.dequeue()
 
     if music is None:
-        print(format_error(f"A fila '{selected_key}' está vazia!"))
-        print(f"\n{Colors.YELLOW} Monte as filas na opção 5.{Colors.RESET}")
+        print(centered_msg(f"A fila '{selected_key.capitalize()}' está vazia!"))
+        print(centered_msg("Monte as filas na opção 5"))
+        print_section_end()
+
         nav, _ = get_nav_input()
         if nav:
             return nav
@@ -344,6 +348,7 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
         f"\n{Colors.DARK_GRAY}Música adicionada ao seu histórico de reprodução.{Colors.RESET}"
     )
 
+    print_section_end()
     print("[A] Próxima na playlist")
     nav, choice = get_nav_input(False)
     if nav:
