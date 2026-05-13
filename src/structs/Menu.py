@@ -1,4 +1,6 @@
 from structs.MenuStack import MenuStack
+from structs.PlaylistQueue import Playlist
+from utils.strings import format_error
 from utils.types import AppState, Screen, ScreenConfig
 from ui import (
     lib_add_song,
@@ -8,6 +10,7 @@ from ui import (
     lib_play_next,
     lib_remove_song,
     lib_search_song,
+    lib_see_playlist,
     main_menu,
     screen_clear,
     todo_screen,
@@ -62,7 +65,14 @@ class MenuManager:
             ScreenConfig(
                 Screen.PLAYER,
                 "Reproduzir música",
-                # Already handled in __handle_player
+                # Handled in __handle_player
+                lambda: (),
+                Screen.MAIN,
+            ),
+            ScreenConfig(
+                Screen.SEE_PLAYLIST,
+                "Ver playlist",
+                # Handled in __handle_see_playlist
                 lambda: (),
                 Screen.MAIN,
             ),
@@ -110,9 +120,17 @@ class MenuManager:
             if selected_key:
                 self.state.selected_playlist = selected_key
 
+                previous_sc: Screen | None = self.__screen_history.peek_at(1)
+
+                if previous_sc == Screen.SEE_PLAYLIST:
+                    return self.__handle_see_playlist()
+
                 return self.__handle_player()
 
             return Screen.MAIN
+
+        elif screen == Screen.SEE_PLAYLIST:
+            return self.__handle_see_playlist()
 
         elif screen == Screen.PLAYER:
             return self.__handle_player()
@@ -147,3 +165,22 @@ class MenuManager:
         return lib_play_next(
             self.state.library, self.state.history, self.state.selected_playlist
         )
+
+    def __handle_see_playlist(self) -> Screen:
+        if not self.state.selected_playlist:
+            return Screen.CHOOSE_PLAYLIST
+
+        p: Playlist | None = self.state.library.playlists.get(
+            self.state.selected_playlist
+        )
+
+        if not p:
+            print(
+                format_error(
+                    f"Playlist '{self.state.selected_playlist}' não encontrada"
+                )
+            )
+            self.state.selected_playlist = None
+            return Screen.MAIN
+
+        return lib_see_playlist(p)

@@ -92,6 +92,7 @@ class Playlist:
         """Playlist display with table formatting"""
         if self.is_empty():
             print(format_error(f"Playlist {self.info.name} está vazia"))
+            print(f"{Colors.YELLOW} Monte as filas na opção 5.{Colors.RESET}\n")
             return
 
         print(

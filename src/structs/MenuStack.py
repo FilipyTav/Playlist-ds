@@ -41,6 +41,15 @@ class MenuStack:
     def peek(self) -> Screen | None:
         return self.__top.data if self.__top else None
 
+    def peek_at(self, pos: int) -> Screen | None:
+        current: MNode | None = self.__top
+        index: int = 0
+        while current:
+            if index == pos:
+                return current.data
+            current = current.prev
+            index += 1
+
     def print_stack(self) -> None:
         if self.is_empty():
             print("\n[Vazio] Pilha de Menus sem telas.")

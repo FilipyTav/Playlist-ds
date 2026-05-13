@@ -331,6 +331,20 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
     return Screen.BACK
 
 
+def lib_see_playlist(playlist: Playlist) -> Screen:
+    screen_clear()
+    playlist.display_for_user()
+
+    print("[A] Exibir novamente")
+    nav, choice = get_nav_input(False)
+    if nav:
+        return nav
+    if choice == "a":
+        return Screen.STAY
+
+    return Screen.BACK
+
+
 # --------------------------------
 
 
