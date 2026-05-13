@@ -24,9 +24,7 @@ def main():
     library = MusicLibrary()
     for s in songs:
         library.append(s)
-    # library.append(track1)
-    # library.prepend(track2)
-    # a = library.find_by_name("Supercalifragilisticexpialidocious")
+
     history: History = History()
 
     menu: MenuManager = MenuManager(AppState(library, history))

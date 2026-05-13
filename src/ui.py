@@ -1,6 +1,6 @@
 import os
 
-from structs.Music import Music
+from structs.Music import Music, MusicData
 from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 from structs.PlaylistQueue import Playlist, PlaylistInfo
@@ -90,7 +90,12 @@ def lib_add_song(library: MusicLibrary) -> Screen:
         data[key] = val.capitalize()
 
     success: bool = library.append(
-        Music(data["title"], data["artist"], data["genre"], int(data["bpm"]))
+        MusicData(
+            title=data["title"],
+            artist=data["artist"],
+            genre=data["genre"],
+            bpm=int(data["bpm"]),
+        )
     )
 
     print(SUB_SEPARATOR)

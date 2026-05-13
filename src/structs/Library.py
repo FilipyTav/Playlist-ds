@@ -1,4 +1,4 @@
-from structs.Music import Music
+from structs.Music import Music, MusicData
 from structs.MusicNode import SMusicNode
 from utils.colors import Colors
 from utils.strings import (
@@ -27,15 +27,30 @@ class MusicLibrary:
         # Avoids repetition
         self.__registered: dict[str, set[str]] = {}
 
-    def insert_at(self, pos: int, m: Music) -> bool:
+    def insert_at(self, pos: int, data: Music | MusicData) -> bool:
         """Insert at pos"""
-        if self.has_song(m.title, m.artist):
-            print("\n" + format_error("Música já presente na biblioteca"))
-            return False
-
         if pos < 0 or pos > self.__count:
             print(f"Index out of range: {pos}, the list has {self.__count} element(s)")
             return False
+
+        # Do not increment id before checking with has_song
+        # ------------------
+        m: Music | None = None
+
+        if isinstance(data, Music):
+            m = data
+            t, a = m.title, m.artist
+        else:
+            t, a = data.title, data.artist
+            m = None
+        # ------------------
+
+        if self.has_song(t, a):
+            print("\n" + format_error("Música já presente na biblioteca"))
+            return False
+
+        if m is None:
+            m = Music(*data)  # type: ignore
 
         new_node: SMusicNode = SMusicNode(m)
 
@@ -85,11 +100,11 @@ class MusicLibrary:
     def __len__(self) -> int:
         return self.__count
 
-    def append(self, m: Music) -> bool:
+    def append(self, m: Music | MusicData) -> bool:
         """Add to end"""
         return self.insert_at(self.__len__(), m)
 
-    def prepend(self, m: Music) -> bool:
+    def prepend(self, m: Music | MusicData) -> bool:
         """Add to start"""
         return self.insert_at(0, m)
 

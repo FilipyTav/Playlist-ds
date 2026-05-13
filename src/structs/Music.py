@@ -1,4 +1,12 @@
 from utils.colors import Colors
+from typing import NamedTuple
+
+
+class MusicData(NamedTuple):
+    title: str
+    artist: str
+    genre: str
+    bpm: int
 
 
 class Music:
