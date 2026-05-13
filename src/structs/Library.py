@@ -4,6 +4,7 @@ from utils.colors import Colors
 from utils.strings import (
     SEPARATOR,
     SEPARATOR_WIDTH,
+    centered_msg,
     clean_string,
     format_error,
     print_section_name,
@@ -286,9 +287,7 @@ class MusicLibrary:
         """Prints every song in the library."""
 
         if self.is_empty():
-            print(
-                f"\n{Colors.YELLOW} A biblioteca está vazia no momento.{Colors.RESET}"
-            )
+            print(centered_msg("A biblioteca está vazia no momento"))
             return
 
         print_section_name(f"BIBLIOTECA ({self.__len__()} FAIXAS)")
@@ -297,14 +296,7 @@ class MusicLibrary:
         index: int = 1
 
         while current:
-            # print(
-            #     f"\n{Colors.YELLOW}Track {index:02d}/{self.__count:02d}{Colors.RESET}"
-            # )
-
             current.data.display_card()
-
-            # if current.next:
-            #     print(f"{Colors.MAGENTA}x{Colors.RESET}")
 
             current = current.next
             index += 1

@@ -119,8 +119,8 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
     screen_clear()
     library.display_all_cards()
 
-    print("[A] Listar novamente", end="")
-    nav, choice = get_nav_input()
+    print("[A] Listar novamente")
+    nav, choice = get_nav_input(False)
     if nav:
         return nav
     if choice == "a":
