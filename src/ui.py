@@ -8,9 +8,7 @@ from utils.colors import Colors
 from utils.input import get_and_validate_input, get_nav_input, validate_id
 from utils.strings import (
     SEPARATOR,
-    SEPARATOR_WIDTH,
     SUB_SEPARATOR,
-    clean_string,
     format_error,
     print_section_end,
     print_section_name,
@@ -356,7 +354,9 @@ def lib_see_history(history: History) -> Screen:
     print_section_name("--Histórico--")
 
     history.display_for_user()
-    print("[A] Mostrar novamente")
+
+    print_section_end()
+    print("\n[A] Mostrar novamente")
     nav, choice = get_nav_input(False)
     if nav:
         return nav

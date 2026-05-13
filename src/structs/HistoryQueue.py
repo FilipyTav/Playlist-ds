@@ -1,6 +1,6 @@
 from structs.Music import DMusicNode, Music
 from utils.colors import Colors
-from utils.strings import format_error, truncate_string
+from utils.strings import SEPARATOR_WIDTH, format_error, truncate_string
 
 
 # Queue
@@ -80,7 +80,9 @@ class History:
     def display_for_user(self):
         """Display table"""
         if self.is_empty():
-            print(format_error("Histórico vazio"))
+            print(
+                f"{Colors.YELLOW}{Colors.BOLD}{'Histórico vazio':^{SEPARATOR_WIDTH}}{Colors.RESET}"
+            )
             return
 
         header: str = (
@@ -93,19 +95,19 @@ class History:
         while current:
             m: Music = current.data
 
-            clean_title: str = truncate_string(m.title, 23)
-            clean_artist: str = truncate_string(m.artist, 18)
+            ca: str = truncate_string(m.artist, 18)
+            ct: str = truncate_string(m.title, 23)
 
             print(f"{Colors.GOLD}{m.id:<6}{Colors.RESET}", end="")
-            print(f"{Colors.WHITE}{clean_title:<25}{Colors.RESET}", end="")
-            print(f"{Colors.LIGHT_GRAY}{clean_artist:<20}{Colors.RESET}", end="")
+            print(f"{Colors.WHITE}{ct:<25}{Colors.RESET}", end="")
+            print(f"{Colors.LIGHT_GRAY}{ca:<20}{Colors.RESET}", end="")
             print(f"{Colors.CYAN}{m.bpm:^8}{Colors.RESET}")
 
             current = current.next
 
         # 3. Footer
         print(f"{Colors.DARK_GRAY}{'—' * 60}{Colors.RESET}")
-        print(f"{Colors.MAGENTA}Total: {self.__count} músicas{Colors.RESET}\n")
+        print(f"{Colors.MAGENTA}Total: {self.__count} música(s){Colors.RESET}")
 
     def display_all_cards(self):
         """Prints every song in the playlist."""
