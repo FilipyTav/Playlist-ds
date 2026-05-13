@@ -366,9 +366,18 @@ def lib_see_history(history: History) -> Screen:
 def lib_see_statistics(library: MusicLibrary) -> Screen:
     screen_clear()
     print_section_name("--Estatísticas--")
-    statistics: tuple[int, dict[str, int]] = library.get_statistics()
 
-    print("[A] Exibir novamente")
+    total_songs, playlist_sizes = library.get_statistics()
+
+    print(f"Total de Músicas: {total_songs}")
+    print(SEPARATOR)
+    print(f"{'Playlist':<20} | {'Músicas':<10}")
+    print(SEPARATOR)
+
+    for name, size in playlist_sizes.items():
+        print(f"{name:<20} | {size:<10}")
+
+    print("\n[A] Exibir novamente")
     nav, choice = get_nav_input(False)
     if nav: return nav
     if choice == "a":
