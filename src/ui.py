@@ -117,7 +117,12 @@ def lib_add_song(library: MusicLibrary) -> Screen:
 
 def lib_list_songs(library: MusicLibrary) -> Screen:
     screen_clear()
+
+    print_section_name(f"BIBLIOTECA ({library.len()} FAIXAS)")
+
     library.display_all_cards()
+
+    print_section_end()
 
     print("[A] Listar novamente")
     nav, choice = get_nav_input(False)

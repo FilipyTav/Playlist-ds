@@ -98,12 +98,12 @@ class MusicLibrary:
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
 
-    def __len__(self) -> int:
+    def len(self) -> int:
         return self.__count
 
     def append(self, m: Music | MusicData) -> bool:
         """Add to end"""
-        return self.insert_at(self.__len__(), m)
+        return self.insert_at(self.len(), m)
 
     def prepend(self, m: Music | MusicData) -> bool:
         """Add to start"""
@@ -290,8 +290,6 @@ class MusicLibrary:
             print(centered_msg("A biblioteca está vazia no momento"))
             return
 
-        print_section_name(f"BIBLIOTECA ({self.__len__()} FAIXAS)")
-
         current: SMusicNode | None = self.__head
         index: int = 1
 
@@ -301,11 +299,9 @@ class MusicLibrary:
             current = current.next
             index += 1
 
-        print(f"\n{Colors.MAGENTA}{Colors.BOLD}" + SEPARATOR + f"{Colors.RESET}")
-
     def get_statistics(self) -> tuple[int, dict[str, int]]:
         """Returns [Total songs, playlist_sizes],"""
-        total_songs: int = self.__len__()
+        total_songs: int = self.len()
         playlist_sizes: dict[str, int] = {}
         for k, v in self.playlists.items():
             playlist_sizes[k.capitalize()] = v.len()
