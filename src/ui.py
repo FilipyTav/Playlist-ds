@@ -361,7 +361,9 @@ def lib_play_next(library: MusicLibrary, history: History, selected_key: str) ->
 
 def lib_see_playlist(playlist: Playlist) -> Screen:
     screen_clear()
+    print_section_name(f"Playlist {playlist.info.name}")
     playlist.display_for_user()
+    print_section_end()
 
     print("[A] Exibir novamente")
     nav, choice = get_nav_input(False)

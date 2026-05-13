@@ -74,7 +74,6 @@ class MenuManager:
             ScreenConfig(
                 Screen.SEE_PLAYLIST,
                 "Ver playlist",
-                # Handled in __handle_see_playlist
                 self.__handle_see_playlist,
                 Screen.MAIN,
             ),
@@ -85,7 +84,7 @@ class MenuManager:
                 Screen.MAIN,
             ),
             ScreenConfig(
-                Screen.SEE_PLAYLIST,
+                Screen.SEE_STATISTICS,
                 "Ver estatísticas",
                 lambda: lib_see_statistics(self.state.library),
                 Screen.MAIN,
