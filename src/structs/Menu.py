@@ -60,19 +60,20 @@ class MenuManager:
                 Screen.MAIN,
             ),
             ScreenConfig(
-                Screen.CHOOSE_PLAYLIST,
-                "Escolhar playlist",
-                lambda: lib_choose_playlist(self.state.library),
-                Screen.MAIN,
-            ),
-            # ------------
-            ScreenConfig(
                 Screen.PLAYER,
                 "Reproduzir música",
                 # Already handled in __handle_player
                 lambda: (),
+                Screen.MAIN,
+            ),
+            # ------------
+            ScreenConfig(
+                Screen.CHOOSE_PLAYLIST,
+                "Escolhar playlist",
+                lambda: lib_choose_playlist(self.state.library),
                 None,
             ),
+            # ------------
             # Placeholder
             # ------------
             ScreenConfig(Screen.TODO, "(Em breve)", todo_screen, None),
@@ -125,6 +126,7 @@ class MenuManager:
         if new_sc == Screen.MAIN:
             self.__screen_history.clear()
             self.__screen_history.push(Screen.MAIN)
+            self.state.selected_playlist = None
 
         elif new_sc == Screen.EXIT:
             print("\nEncerrando o sistema...")
@@ -133,6 +135,7 @@ class MenuManager:
 
         elif new_sc == Screen.BACK:
             self.__screen_history.pop()
+            self.state.selected_playlist = None
 
         else:
             self.__screen_history.push(new_sc)
