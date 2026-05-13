@@ -35,7 +35,6 @@ Foram usadas diferentes estruturas de dados para cada funcionalidade:
 | ├─ `strings.py` | Funções úteis de display de strings. |
 | ├─ `input.py` | Tratamento e validação de entradas do usuário no terminal. |
 | ├─ `colors.py` | Constantes ANSI para formatação visual no terminal. |
-| ├─ `errors.py` | Padronização de mensagens de erro e alertas. |
 | └─ `types.py` | Definições de tipos customizados para o sistema. |
 
 ---
