@@ -1,6 +1,6 @@
 import os
 
-from music import Music
+from structs.Music import Music
 from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 from structs.PlaylistQueue import Playlist, PlaylistInfo
@@ -372,24 +372,30 @@ def lib_see_statistics(library: MusicLibrary) -> Screen:
 
     total_songs, playlist_sizes = library.get_statistics()
 
-    print(f"{Colors.BOLD}{Colors.CYAN}Total de Músicas: {Colors.RESET}{Colors.LIGHT_GREEN}{total_songs}{Colors.RESET}")
+    print(
+        f"{Colors.BOLD}{Colors.CYAN}Total de Músicas: {Colors.RESET}{Colors.LIGHT_GREEN}{total_songs}{Colors.RESET}"
+    )
     print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
 
     print(f"{Colors.BOLD}{Colors.GOLD}{'Playlist':<20} | {'Músicas':<10}{Colors.RESET}")
     print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
 
     for name, size in playlist_sizes.items():
-        print(f"{Colors.WHITE}{name:<20}{Colors.RESET} | {Colors.BLUE}{size:<10}{Colors.RESET}")
-    
+        print(
+            f"{Colors.WHITE}{name:<20}{Colors.RESET} | {Colors.BLUE}{size:<10}{Colors.RESET}"
+        )
+
     print_section_end()
 
     print("\n[A] Exibir novamente")
     nav, choice = get_nav_input(False)
-    if nav: return nav
+    if nav:
+        return nav
     if choice == "a":
         return Screen.STAY
 
     return Screen.BACK
+
 
 # --------------------------------
 

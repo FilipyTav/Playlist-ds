@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from music import DMusicNode, Music
+from structs.Music import DMusicNode, Music
 from utils.colors import Colors
 from utils.strings import format_error, truncate_string
 
@@ -58,7 +58,7 @@ class Playlist:
 
     def is_empty(self) -> bool:
         return not (self.__head and self.__tail)
-    
+
     def len(self) -> int:
         return self.__count
 

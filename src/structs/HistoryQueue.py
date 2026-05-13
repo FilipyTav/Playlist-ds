@@ -1,4 +1,4 @@
-from music import DMusicNode, Music
+from structs.Music import DMusicNode, Music
 from utils.colors import Colors
 from utils.strings import format_error, truncate_string
 

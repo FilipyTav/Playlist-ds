@@ -1,4 +1,4 @@
-from music import Music
+from structs.Music import Music
 from structs.HistoryQueue import History
 from structs.Library import MusicLibrary
 from structs.Menu import MenuManager

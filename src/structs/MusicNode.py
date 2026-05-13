@@ -1,4 +1,4 @@
-from music import Music
+from structs.Music import Music
 
 
 class SMusicNode:

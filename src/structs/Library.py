@@ -1,4 +1,4 @@
-from music import Music
+from structs.Music import Music
 from structs.MusicNode import SMusicNode
 from utils.colors import Colors
 from utils.strings import (
@@ -282,4 +282,3 @@ class MusicLibrary:
         for k, v in self.playlists.items():
             playlist_sizes[k.capitalize()] = v.len()
         return (total_songs, playlist_sizes)
-
