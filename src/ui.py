@@ -137,6 +137,7 @@ def lib_list_songs(library: MusicLibrary) -> Screen:
 
 def lib_remove_song(library: MusicLibrary) -> Screen:
     screen_clear()
+    print_section_name("--Remoção--")
     library.display_all_cards()
 
     if library.is_empty():
@@ -144,6 +145,7 @@ def lib_remove_song(library: MusicLibrary) -> Screen:
         if nav:
             return nav
 
+    print_section_end()
     print_section_name("REMOVER MÚSICA", sub=True)
 
     rm_song: Music | None = None
