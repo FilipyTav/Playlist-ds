@@ -15,6 +15,7 @@ from utils.strings import (
     get_visible_len,
     print_section_end,
     print_section_name,
+    truncate_string,
 )
 from utils.types import Screen, ScreenConfig
 
@@ -245,7 +246,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
     if len(songs):
         msg: str = centered_msg(
-            f"Música '{songs[0].title}' encontrada!",
+            f"Música '{truncate_string(songs[0].title, 20)}' encontrada!",
             SEPARATOR_WIDTH - 2,
             Colors.LIGHT_GREEN,
         )
