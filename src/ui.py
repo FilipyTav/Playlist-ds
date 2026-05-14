@@ -400,7 +400,7 @@ def lib_see_history(history: History) -> Screen:
     return Screen.BACK
 
 
-def lib_see_statistics(library: MusicLibrary) -> Screen:
+def lib_see_statistics(library: MusicLibrary, history: History) -> Screen:
     screen_clear()
     print_section_name("--Estatísticas--")
 
@@ -408,6 +408,10 @@ def lib_see_statistics(library: MusicLibrary) -> Screen:
 
     print(
         f"{Colors.BOLD}{Colors.CYAN}Total de Músicas: {Colors.RESET}{Colors.LIGHT_GREEN}{total_songs}{Colors.RESET}"
+    )
+
+    print(
+        f"{Colors.BOLD}{Colors.CYAN}Total Histórico: {Colors.RESET}{Colors.LIGHT_GREEN}{history.len()}{Colors.RESET}"
     )
     print(f"{Colors.DARK_GRAY}{SEPARATOR}{Colors.RESET}")
 

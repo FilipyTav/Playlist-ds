@@ -86,7 +86,7 @@ class MenuManager:
             ScreenConfig(
                 Screen.SEE_STATISTICS,
                 "Ver estatísticas",
-                lambda: lib_see_statistics(self.state.library),
+                lambda: lib_see_statistics(self.state.library, self.state.history),
                 Screen.MAIN,
             ),
             # ------------
