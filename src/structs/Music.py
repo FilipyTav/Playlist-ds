@@ -54,9 +54,9 @@ class Music:
 
         print(f"{Colors.BLUE}┌{line}┐{Colors.RESET}")
         print(format_row("ID", self.id))
-        print(format_row("Title", self.title))
-        print(format_row("Artist", self.artist))
-        print(format_row("Genre", self.genre))
+        print(format_row("Título", self.title))
+        print(format_row("Artista", self.artist))
+        print(format_row("Gênero", self.genre))
         print(format_row("Tempo", f"{self.bpm} BPM"))
         print(f"{Colors.BLUE}└{line}┘{Colors.RESET}")
 

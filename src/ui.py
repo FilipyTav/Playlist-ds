@@ -12,6 +12,7 @@ from utils.strings import (
     SUB_SEPARATOR,
     centered_msg,
     format_error,
+    get_visible_len,
     print_section_end,
     print_section_name,
 )
@@ -205,7 +206,7 @@ def lib_search_song(library: MusicLibrary) -> Screen:
 
     print(SUB_SEPARATOR)
     op: str | None = get_and_validate_input(
-        "Buscar por ID[1] ou nome[2]?", validate_op, "Escolha uma das opções", "B"
+        "Buscar por ID[1] ou Nome[2]?", validate_op, "Escolha uma das opções", "B"
     )
 
     if not op:
@@ -241,11 +242,16 @@ def lib_search_song(library: MusicLibrary) -> Screen:
         error_msg = f"Não foi possível encontrar '{title}' na biblioteca."
 
     if len(songs):
-        msg: str = f" Música '{songs[0].title}' encontrada! "
-        border: str = "═" * len(msg)
+        msg: str = centered_msg(
+            f"Música '{songs[0].title}' encontrada!",
+            SEPARATOR_WIDTH - 2,
+            Colors.LIGHT_GREEN,
+        )
+
+        border: str = "═" * (SEPARATOR_WIDTH - 2)
 
         print(f"\n{Colors.CYAN}╔{border}╗")
-        print(f"║{Colors.BOLD}{Colors.LIGHT_GREEN}{msg}{Colors.RESET}{Colors.CYAN}║")
+        print(f"║{msg}{Colors.CYAN}║")
         print(f"╚{border}╝{Colors.RESET}")
 
         for s in songs:
