@@ -59,10 +59,3 @@ class Music:
         print(format_row("Gênero", self.genre))
         print(format_row("Tempo", f"{self.bpm} BPM"))
         print(f"{Colors.BLUE}└{line}┘{Colors.RESET}")
-
-
-class DMusicNode:
-    def __init__(self, data: Music) -> None:
-        self.data: Music = data
-        self.next: DMusicNode | None = None
-        self.prev: DMusicNode | None = None

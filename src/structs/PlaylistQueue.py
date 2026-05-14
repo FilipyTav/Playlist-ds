@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from structs.Music import DMusicNode, Music
+from structs.Music import Music
+from structs.MusicNode import SMusicNode
 from utils.colors import Colors
 from utils.strings import centered_msg, format_error, truncate_string
 
@@ -15,21 +16,19 @@ class PlaylistInfo:
 # Queue
 class Playlist:
     def __init__(self, info: PlaylistInfo):
-        self.__head: DMusicNode | None = None
-        self.__tail: DMusicNode | None = None
+        self.__head: SMusicNode | None = None
+        self.__tail: SMusicNode | None = None
         self.__count: int = 0
 
         self.info: PlaylistInfo = info
 
     def enqueue(self, m: Music) -> bool:
-        new_node: DMusicNode = DMusicNode(m)
+        new_node: SMusicNode = SMusicNode(m)
 
         if self.is_empty():
             self.__head = new_node
             self.__tail = new_node
         else:
-            new_node.prev = self.__tail
-
             assert self.__tail
             self.__tail.next = new_node
 
@@ -47,9 +46,7 @@ class Playlist:
 
         self.__head = self.__head.next
 
-        if self.__head:
-            self.__head.prev = None
-        else:
+        if not self.__head:
             self.__tail = None
 
         self.__count -= 1
