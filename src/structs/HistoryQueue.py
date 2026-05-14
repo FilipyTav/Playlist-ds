@@ -4,7 +4,7 @@ from utils.colors import Colors
 from utils.strings import SEPARATOR_WIDTH, centered_msg, format_error, truncate_string
 
 
-# Queue
+# Classe Fila
 class History:
     def __init__(self):
         self.__head: SMusicNode | None = None
@@ -53,7 +53,6 @@ class History:
         self.__count = 0
 
     def __str__(self) -> str:
-        """Quick summary"""
         return f"Histórico(Size: {self.len()}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_for_admin(self):

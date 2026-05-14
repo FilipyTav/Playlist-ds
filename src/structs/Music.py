@@ -9,6 +9,7 @@ class MusicData(NamedTuple):
     bpm: int
 
 
+# Classe Musica
 class Music:
     __next_id: int = 0
 

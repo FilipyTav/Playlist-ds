@@ -13,7 +13,7 @@ class PlaylistInfo:
     max_bpm: int
 
 
-# Queue
+# Classe Fila
 class Playlist:
     def __init__(self, info: PlaylistInfo):
         self.__head: SMusicNode | None = None
@@ -64,7 +64,6 @@ class Playlist:
         self.__count = 0
 
     def __str__(self) -> str:
-        """Quick summary"""
         return f"Playlist(Size: {self.len()}, Head: {self.__head.data.title if self.__head else 'None'})"
 
     def display_for_admin(self):

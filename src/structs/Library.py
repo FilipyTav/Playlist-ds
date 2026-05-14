@@ -12,6 +12,7 @@ from utils.strings import (
 from structs.PlaylistQueue import Playlist, PlaylistInfo
 
 
+# Classe Biblioteca
 class MusicLibrary:
     def __init__(self):
         self.__head: SMusicNode | None = None
